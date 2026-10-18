@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>藥物分析｜藥學常識</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700;900&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div id="app"></div>
+<script>
+window.SUBJECT = {
+  id: "pharmaceutical-analysis",
+  title: "藥物分析",
+  en: "Pharmaceutical Analysis",
+  tagline: "一顆錠劑上市前要被「審問」上百次：它是誰？有多少？夠不夠純？放久了會不會變？藥物分析就是那位審問官。",
+  hook: {
+    q: "「層析法」(chromatography) 的發明人，名字本身就帶有「顏色」的意思？",
+    a: "1900 年代初，俄國植物學家茨維特 (Mikhail Tsvet) 把植物色素萃取液倒進填滿碳酸鈣粉的玻璃管，再用溶劑沖洗，色素便分成一圈圈色帶。他將此法命名為 chromatography（希臘文「顏色＋書寫」），巧的是他的姓 Tsvet 在俄文中正是「顏色」。今天藥廠品管室裡最忙的 HPLC，就是這根玻璃管的後代。"
+  },
+  intro: {
+    lead: "藥物分析 (pharmaceutical analysis) 是用化學與儀器方法回答四個問題：<b>這是什麼</b>（鑑別）、<b>有多少</b>（含量測定）、<b>夠不夠純</b>（不純物檢查）、<b>品質能否維持</b>（安定性與溶離）。<br><br>從原料藥進廠、錠劑出廠，到上市後的安定性追蹤，每一步都依循藥典 (pharmacopoeia) 的規格與試驗法。分析方法本身也必須經過確效 (validation)，證明它「量得準、量得穩」。<br><br>國考範圍涵蓋古典容量分析（各種滴定）、光譜法、層析法與方法確效；看似是背公式，其實每條公式背後都對應一個實驗室裡真實會出錯的地方。",
+    why: [
+      "藥品品質管制 (QC) 的核心，直接關係到病人拿到的劑量是否正確",
+      "看懂仿單與藥典規格（如含量 90.0–110.0%、溶離 Q 值）的基礎",
+      "不純物與降解物（如亞硝胺類）的偵測，是近年藥品回收事件的關鍵",
+      "國考藥物分析科目重點：滴定計算、Beer 定律、層析參數、ICH Q2 確效"
+    ]
+  },
+  sections: [
+    {
+      title: "藥物分析的目的與藥典",
+      body: "藥典是國家公定的藥品品質標準，規定各藥品的規格 (specification) 與試驗方法；藥物分析就是依這些標準執行鑑別、含量與純度檢驗。",
+      points: [
+        "三大任務：鑑別 (identification)、含量測定 (assay)、純度/不純物檢查 (purity / impurity test)",
+        "中華藥典：我國衛生福利部公告的法定藥典，國內藥品檢驗的首要依據",
+        "USP–NF：美國藥典與國家處方集；JP：日本藥局方；EP (Ph. Eur.)：歐洲藥典",
+        "對照標準品 (reference standard)：鑑別與定量時比對的高純度物質",
+        "規格常以標示量百分比表示，例如含量須為標示量之 90.0%–110.0%（依各論規定）"
+      ],
+      table: {
+        caption: "常見藥典對照",
+        head: ["藥典", "英文/縮寫", "發行地區"],
+        rows: [
+          ["中華藥典", "（我國法定藥典）", "台灣"],
+          ["美國藥典–國家處方集", "USP–NF", "美國"],
+          ["日本藥局方", "JP (Japanese Pharmacopoeia)", "日本"],
+          ["歐洲藥典", "Ph. Eur. / EP", "歐洲藥典會員國"]
+        ]
+      },
+      clinical: "學名藥要證明與原廠品質相當，含量、不純物與溶離曲線都必須依藥典或經確效的方法檢驗。"
+    },
+    {
+      title: "數據品質：準確度、精密度、誤差與有效數字",
+      body: "準確度看「離靶心多遠」，精密度看「彈著點多集中」；一把歪掉的槍可以很精密卻不準確。",
+      points: [
+        "準確度 (accuracy)：測定值與真值的接近程度，常以回收率 (recovery %) 表示",
+        "精密度 (precision)：重複測定值彼此的接近程度，常以標準差 (SD) 或相對標準差 (RSD = SD/平均值 × 100%) 表示",
+        "系統誤差 (systematic / determinate error)：方向固定，可找出原因校正，影響準確度",
+        "隨機誤差 (random / indeterminate error)：無法完全消除，增加重複次數可降低其影響，影響精密度",
+        "有效數字 (significant figures)：小數點前的 0 不算，數字後的 0（在小數點後）要算；乘除取有效位數最少者，加減取小數位數最少者",
+        "pH、log 值的有效數字只看小數部分，例如 pH 2.45 為 2 位有效數字"
+      ],
+      table: {
+        caption: "誤差類型比較",
+        head: ["類型", "例子", "主要影響", "處理方式"],
+        rows: [
+          ["系統誤差", "天平或量瓶未校正、試藥不純、方法本身偏差", "準確度", "校正儀器、空白試驗、對照試驗"],
+          ["隨機誤差", "讀數時的微小波動、環境溫度起伏", "精密度", "增加重複測定次數、統計處理"],
+          ["過失誤差 (gross error)", "溶液濺出、記錄抄錯", "整體結果", "重做；可用 Q 檢定剔除離群值"]
+        ]
+      },
+      clinical: "若 HPLC 含量分析的對照標準品已吸濕變質，每次結果都會朝同一方向偏差，這是典型的系統誤差。"
+    },
+    {
+      title: "容量分析：滴定法與指示劑",
+      body: "滴定 (titration) 是用已知濃度的滴定液 (volumetric solution) 與待測物定量反應，由消耗體積算出含量；指示劑讓「當量點」以顏色變化現身。",
+      points: [
+        "當量點 (equivalence point) 是理論完全反應點；終點 (end point) 是指示劑實際變色點，兩者差距即滴定誤差",
+        "一級標準品 (primary standard)：如鄰苯二甲酸氫鉀 (KHP) 標定 NaOH、無水碳酸鈉標定 HCl",
+        "酸鹼指示劑：酚酞 (phenolphthalein) 約 pH 8.2–10，無色→粉紅；甲基橙 (methyl orange) 約 pH 3.1–4.4，紅→黃",
+        "非水滴定 (non-aqueous titration)：弱鹼藥物以冰醋酸為溶劑、過氯酸滴定、結晶紫 (crystal violet) 指示；弱酸藥物可用 DMF 等溶劑、甲醇鈉滴定",
+        "碘滴定：直接法 (iodimetry) 以 I<sub>2</sub> 滴定還原劑（如維生素 C）；間接法 (iodometry) 先生成 I<sub>2</sub> 再以 Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub> 滴定，澱粉指示劑於近終點時加入",
+        "過錳酸鉀 (KMnO<sub>4</sub>) 滴定：本身為自身指示劑 (self-indicator)，以硫酸酸化"
+      ],
+      table: {
+        caption: "四大類滴定法",
+        head: ["類型", "滴定液", "指示/終點", "藥學應用例"],
+        rows: [
+          ["酸鹼滴定", "HCl、NaOH", "酚酞、甲基橙、甲基紅", "阿斯匹靈、硼酸含量"],
+          ["非水滴定", "HClO<sub>4</sub>（冰醋酸中）", "結晶紫、電位法", "胺類弱鹼藥物（如多種生物鹼鹽）"],
+          ["氧化還原滴定", "KMnO<sub>4</sub>、I<sub>2</sub>、Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub>", "自身指示、澱粉", "過氧化氫、維生素 C"],
+          ["錯合滴定", "EDTA 二鈉", "鉻黑 T (pH 10)、鈣指示劑 (calconcarboxylic acid)", "鈣、鎂、鋅鹽"],
+          ["沉澱滴定（銀量法）", "AgNO<sub>3</sub>、NH<sub>4</sub>SCN", "Mohr：K<sub>2</sub>CrO<sub>4</sub>；Volhard：鐵明礬；Fajans：吸附指示劑", "氯化鈉、溴化物"]
+        ]
+      },
+      clinical: "EDTA 與金屬離子以 1:1 錯合，同一原理也用在臨床：EDTA 鈣二鈉 (edetate calcium disodium) 可作為鉛中毒的螯合劑。"
+    },
+    {
+      title: "UV-Vis 分光光度法與 Beer-Lambert 定律",
+      body: "分子吸收紫外/可見光 (約 200–800 nm) 的程度與濃度成正比，這就是最常用的定量工具。",
+      points: [
+        "Beer-Lambert 定律：A = εbc，A 為吸光度 (absorbance)、ε 為莫耳吸光係數 (molar absorptivity)、b 為光徑 (cm)、c 為莫耳濃度",
+        "A = −log T = log(1/T)；T = 10% 時 A = 1，T = 1% 時 A = 2",
+        "藥典常用比吸光度 A<sup>1%</sup><sub>1cm</sub>：1 g/100 mL、光徑 1 cm 溶液的吸光度",
+        "需有發色團 (chromophore)，如共軛雙鍵、芳香環；常於最大吸收波長 λ<sub>max</sub> 測定以提高靈敏度",
+        "偏離線性的常見原因：濃度過高、雜散光、化學平衡（解離、聚合）、非單色光",
+        "UV 光區須用石英 (quartz) 樣品槽，玻璃會吸收紫外光"
+      ],
+      clinical: "許多錠劑的溶離試驗，就是在不同時間取樣後以 UV 測定吸光度，換算已溶出的藥量。"
+    },
+    {
+      title: "其他光譜法：IR、螢光、AAS、NMR、MS",
+      body: "每種光譜回答不同的問題：IR 看官能基、螢光拚靈敏度、AAS 量金屬、NMR 與 MS 則幫分子「畫出結構與秤出重量」。",
+      points: [
+        "紅外光譜 (IR)：分子振動吸收，C=O 伸縮約 1700 cm<sup>−1</sup>；約 1500 cm<sup>−1</sup> 以下為指紋區 (fingerprint region)，常與標準品圖譜比對作鑑別",
+        "螢光法 (fluorescence)：放射波長比激發波長長（Stokes shift）；靈敏度通常高於 UV，但易受淬滅 (quenching) 影響",
+        "原子吸收光譜 (AAS)：以中空陰極燈 (hollow cathode lamp) 發出該元素特定波長，測定金屬元素",
+        "核磁共振 (NMR)：以 TMS 為 δ 0 ppm 參考；化學位移、積分面積、偶合裂分 (n+1 規則) 推定結構",
+        "質譜 (MS)：測定離子的質荷比 (m/z)；Cl 化合物 M:M+2 約 3:1、Br 約 1:1"
+      ],
+      table: {
+        caption: "光譜法速查",
+        head: ["方法", "量測對象", "主要用途"],
+        rows: [
+          ["UV-Vis", "電子躍遷吸收", "定量（含量、溶離）"],
+          ["IR", "分子振動吸收", "鑑別、官能基確認"],
+          ["螢光", "激發後放射光", "低濃度高靈敏定量"],
+          ["AAS", "基態原子吸收", "金屬元素（如鉛、鋅）"],
+          ["NMR", "原子核自旋", "結構解析"],
+          ["MS", "離子質荷比", "分子量、結構、與 LC/GC 連用定量"]
+        ]
+      },
+      clinical: "LC-MS/MS 是治療藥物監測 (TDM) 與亞硝胺類不純物微量分析的重要工具。"
+    },
+    {
+      title: "層析法：TLC、HPLC、GC",
+      body: "層析是一場「賽跑」：成分在固定相 (stationary phase) 與移動相 (mobile phase) 之間分配，親和力不同的分子跑出不同速度而被分開。",
+      points: [
+        "TLC：R<sub>f</sub> = 斑點移動距離 ÷ 溶媒前緣移動距離，介於 0 與 1 之間",
+        "滯留時間 (retention time, t<sub>R</sub>)：用於鑑別；波峰面積用於定量",
+        "滯留因子 k = (t<sub>R</sub> − t<sub>0</sub>) / t<sub>0</sub>；選擇性 α = k<sub>2</sub>/k<sub>1</sub>",
+        "理論板數 (theoretical plates) N = 16(t<sub>R</sub>/W)<sup>2</sup> = 5.54(t<sub>R</sub>/W<sub>1/2</sub>)<sup>2</sup>；N 越大管柱效率越高，HETP = L/N",
+        "解析度 (resolution) R<sub>s</sub> = 2(t<sub>R2</sub> − t<sub>R1</sub>)/(W<sub>1</sub> + W<sub>2</sub>)；R<sub>s</sub> ≥ 1.5 視為基線分離",
+        "GC：適用揮發性且熱安定的物質，載體氣體如 He、N<sub>2</sub>，常用 FID 偵測器；藥典殘留溶劑檢驗常用 GC"
+      ],
+      table: {
+        caption: "正相 vs 逆相 HPLC",
+        head: ["項目", "正相 (normal phase)", "逆相 (reversed phase)"],
+        rows: [
+          ["固定相", "極性（矽膠 silica）", "非極性（C18 / ODS）"],
+          ["移動相", "非極性（己烷等）", "極性（水、甲醇、乙腈）"],
+          ["先洗出者", "非極性成分", "極性成分"],
+          ["增加移動相中有機溶劑比例", "—", "滯留時間縮短"],
+          ["使用頻率", "較少", "藥物分析最常用"]
+        ]
+      },
+      clinical: "系統適用性試驗 (system suitability) 要求每次分析前確認解析度、理論板數、拖尾因子與重複注射 RSD 符合規定。"
+    },
+    {
+      title: "分析方法確效 (ICH Q2)",
+      body: "方法確效 (analytical method validation) 是用數據證明一個分析方法「適合其預定用途」，國際共通準則為 ICH Q2。",
+      points: [
+        "專一性 (specificity)：在不純物、降解物、賦形劑存在下仍能準確測得待測物",
+        "線性 (linearity) 與範圍 (range)：ICH 建議至少 5 個濃度點評估線性",
+        "準確度 (accuracy)：常以回收率表示，建議至少 3 個濃度、各 3 重複（共 9 次）",
+        "精密度 (precision)：重複性 (repeatability)、中間精密度 (intermediate precision)、再現性 (reproducibility)",
+        "偵測極限 LOD ≈ 3.3σ/S（S/N 約 3:1）；定量極限 LOQ ≈ 10σ/S（S/N 約 10:1），σ 為反應值標準差、S 為檢量線斜率",
+        "耐變性/穩健性 (robustness)：刻意微調條件（pH、流速、管柱溫度）後結果是否仍可靠"
+      ],
+      table: {
+        caption: "不同試驗類型需確效的參數（依 ICH Q2(R1)）",
+        head: ["參數", "鑑別", "不純物定量", "不純物限量試驗", "含量測定"],
+        rows: [
+          ["專一性", "＋", "＋", "＋", "＋"],
+          ["準確度", "−", "＋", "−", "＋"],
+          ["精密度", "−", "＋", "−", "＋"],
+          ["偵測極限 LOD", "−", "−（視情況）", "＋", "−"],
+          ["定量極限 LOQ", "−", "＋", "−", "−"],
+          ["線性／範圍", "−", "＋", "−", "＋"]
+        ]
+      },
+      clinical: "藥廠查廠時，若分析方法未經確效，即使產品檢驗合格，數據的可信度也會受質疑。"
+    },
+    {
+      title: "不純物、溶離試驗與安定性指示方法",
+      body: "藥品不只要「有效成分夠」，還要「雜質少」、「溶得出來」，並且「放到有效期限仍合格」。",
+      points: [
+        "ICH Q3A/Q3B：原料藥/製劑中有機不純物的報告、鑑定、驗證閾值；例如每日最大劑量 ≤ 2 g 的原料藥，閾值分別為 0.05%、0.10%、0.15%",
+        "ICH Q3C 殘留溶劑：Class 1 應避免（如苯）、Class 2 須限量（如甲醇）、Class 3 低毒性（如乙醇、丙酮）；Q3D 規範元素不純物",
+        "溶離試驗 (dissolution)：USP 裝置 1 籃式 (basket)、裝置 2 槳式 (paddle) 最常用，溫度 37 ± 0.5 °C",
+        "Q 值：規定時間內應溶出的標示量百分比；第一階段 (S1) 6 錠每錠須不少於 Q + 5%",
+        "安定性指示方法 (stability-indicating method)：能將主成分與降解物分離並分別定量，以強制降解 (forced degradation)：酸、鹼、氧化、熱、光照證明",
+        "ICH Q1A 安定性試驗：加速條件 40 °C / 75% RH、6 個月；長期條件如 25 °C / 60% RH 或 30 °C / 65% RH"
+      ],
+      table: {
+        caption: "藥典溶離裝置",
+        head: ["裝置", "名稱", "常見用途"],
+        rows: [
+          ["Apparatus 1", "籃式 (basket)", "膠囊、易浮起的劑型"],
+          ["Apparatus 2", "槳式 (paddle)", "一般錠劑，最常用"],
+          ["Apparatus 3", "往復筒 (reciprocating cylinder)", "緩釋製劑"],
+          ["Apparatus 4", "流通池 (flow-through cell)", "難溶性藥物、植入劑等"]
+        ]
+      },
+      clinical: "2018 年起的沙坦類 (sartans) 降血壓藥回收事件，起因就是檢出 NDMA 等亞硝胺不純物，促成各國加強致突變性不純物 (ICH M7) 管控。"
+    }
+  ],
+  mnemonics: [
+    {
+      title: "逆相 HPLC 洗出順序",
+      text: "「逆相，極性先出場」：C18 很「油」，不喜歡極性分子，所以極性大的先被水性移動相帶走；正相則反過來，非極性先出。"
+    },
+    {
+      title: "氧化還原：OIL RIG",
+      text: "<b>O</b>xidation <b>I</b>s <b>L</b>oss、<b>R</b>eduction <b>I</b>s <b>G</b>ain（失去電子是氧化、得到電子是還原）。中文版：「失氧得還」。"
+    },
+    {
+      title: "ICH Q2 確效八參數",
+      text: "「專線準精、偵定範穩」：專一性、線性、準確度、精密度、偵測極限 (LOD)、定量極限 (LOQ)、範圍、耐變性/穩健性 (robustness)。"
+    },
+    {
+      title: "LOD 與 LOQ：3 與 10",
+      text: "「看得到要 3 倍，數得清要 10 倍」：LOD 的 S/N 約 3:1（3.3σ/S），LOQ 的 S/N 約 10:1（10σ/S）。"
+    },
+    {
+      title: "銀量法三劍客",
+      text: "「莫爾鉻、佛哈鐵、法揚吸附」：Mohr 用鉻酸鉀（中性）、Volhard 用鐵明礬（酸性、反滴定）、Fajans 用吸附指示劑（如螢光素）。"
+    },
+    {
+      title: "酸鹼指示劑顏色",
+      text: "「酚酞遇鹼紅，甲基橙遇酸紅」：酚酞在酸中無色、鹼中粉紅；甲基橙在酸中紅、鹼中黃。"
+    }
+  ],
+  flashcards: [
+    { front: "準確度 vs 精密度", back: "準確度：與真值接近；精密度：重複測定值彼此接近（RSD）" },
+    { front: "Beer-Lambert 定律", back: "A = εbc；A = −log T" },
+    { front: "T = 10% 時吸光度？", back: "A = 1（T = 1% 時 A = 2）" },
+    { front: "R<sub>f</sub> 的定義", back: "斑點移動距離 ÷ 溶媒前緣移動距離（0–1）" },
+    { front: "解析度 R<sub>s</sub> 公式與基線分離標準", back: "R<sub>s</sub> = 2(t<sub>R2</sub> − t<sub>R1</sub>)/(W<sub>1</sub> + W<sub>2</sub>)；≥ 1.5 為基線分離" },
+    { front: "理論板數 N（以基線峰寬計）", back: "N = 16(t<sub>R</sub>/W)<sup>2</sup>" },
+    { front: "弱鹼藥物非水滴定的溶劑、滴定液、指示劑", back: "冰醋酸、過氯酸、結晶紫" },
+    { front: "間接碘滴定法 (iodometry) 的滴定液", back: "硫代硫酸鈉 Na<sub>2</sub>S<sub>2</sub>O<sub>3</sub>，澱粉於近終點加入" },
+    { front: "EDTA 與金屬離子錯合比", back: "通常 1:1（與金屬價數無關）" },
+    { front: "Mohr 法指示劑與 pH", back: "鉻酸鉀 K<sub>2</sub>CrO<sub>4</sub>，中性至弱鹼性（約 pH 6.5–10），終點生成磚紅色 Ag<sub>2</sub>CrO<sub>4</sub>" },
+    { front: "LOQ 的訊噪比", back: "約 10:1（LOD 約 3:1）" },
+    { front: "安定性指示方法的核心要求", back: "可分離並定量主成分與降解物，以強制降解試驗證明專一性" }
+  ],
+  quiz: [
+    {
+      q: "下列何者最能描述分析方法的「準確度」(accuracy)？",
+      options: ["重複測定結果彼此間的接近程度", "測定值與真值（或公認參考值）的接近程度", "方法能可靠定量的最低濃度", "條件稍作改變時結果不受影響的能力"],
+      answer: 1,
+      explain: "準確度描述與真值的接近程度，常以回收率表示。選項 A 是精密度的定義，兩者最常被混淆；C 為 LOQ，D 為耐變性。"
+    },
+    {
+      q: "某藥物溶液於 λ<sub>max</sub> 測得吸光度 0.450，莫耳吸光係數 ε = 1.5 × 10<sup>4</sup> L·mol<sup>−1</sup>·cm<sup>−1</sup>，光徑 1 cm，其濃度為何？",
+      options: ["3.0 × 10<sup>−5</sup> M", "6.75 × 10<sup>3</sup> M", "3.3 × 10<sup>−4</sup> M", "3.0 × 10<sup>−3</sup> M"],
+      answer: 0,
+      explain: "c = A/(εb) = 0.450 ÷ (1.5 × 10<sup>4</sup> × 1) = 3.0 × 10<sup>−5</sup> M。選項 B 是誤把 A 與 ε 相乘的結果。"
+    },
+    {
+      q: "以 C18 管柱、水/乙腈為移動相進行逆相 HPLC，下列哪一類成分通常最先被洗出？",
+      options: ["極性最小的成分", "分子量最大的成分", "極性最大的成分", "沸點最高的成分"],
+      answer: 2,
+      explain: "逆相的固定相非極性，極性大的成分與固定相作用弱、偏好極性移動相，所以先出。極性最小的成分反而被 C18 留得最久，正相才是非極性先出。"
+    },
+    {
+      q: "間接碘滴定法 (iodometry) 以硫代硫酸鈉滴定游離碘時，澱粉指示劑應於何時加入？",
+      options: ["滴定開始前即加入", "溶液完全變無色之後", "預先與硫代硫酸鈉滴定液混合", "接近終點、溶液呈淡黃色時"],
+      answer: 3,
+      explain: "碘濃度高時加入澱粉，碘會被澱粉緊密吸附、釋放緩慢，造成終點延遲與誤差，故於近終點淡黃色時才加。開始前就加入（選項 A）正是常見錯誤。"
+    },
+    {
+      q: "胺類等弱鹼性藥物進行非水滴定時，最常用的組合為何？",
+      options: ["冰醋酸為溶劑、過氯酸滴定、結晶紫指示劑", "水為溶劑、氫氧化鈉滴定、酚酞指示劑", "二甲基甲醯胺為溶劑、甲醇鈉滴定、瑞香草酚藍指示劑", "氨緩衝液為溶劑、EDTA 滴定、鉻黑 T 指示劑"],
+      answer: 0,
+      explain: "冰醋酸可增強弱鹼的鹼性（拉平效應），再以強酸過氯酸滴定、結晶紫指示終點。選項 C 是弱酸性藥物的非水滴定條件，方向相反。"
+    },
+    {
+      q: "以過錳酸鉀滴定時，通常選用下列哪一種酸來酸化溶液？",
+      options: ["鹽酸", "硫酸", "硝酸", "醋酸"],
+      answer: 1,
+      explain: "硫酸不會被 MnO<sub>4</sub><sup>−</sup> 氧化也不具額外氧化性。鹽酸的 Cl<sup>−</sup> 會被過錳酸鉀氧化而多耗滴定液；硝酸本身是氧化劑，會干擾結果。"
+    },
+    {
+      q: "TLC 中，某斑點自原點移動 3.0 cm，溶媒前緣自原點移動 7.5 cm，其 R<sub>f</sub> 值為何？",
+      options: ["2.5", "0.25", "0.40", "0.60"],
+      answer: 2,
+      explain: "R<sub>f</sub> = 3.0 ÷ 7.5 = 0.40。選項 A 是分子分母倒置，而 R<sub>f</sub> 不可能大於 1。"
+    },
+    {
+      q: "某波峰滯留時間 t<sub>R</sub> = 10.0 min，基線峰寬 W = 0.50 min，依 N = 16(t<sub>R</sub>/W)<sup>2</sup>，理論板數為何？",
+      options: ["320", "800", "1600", "6400"],
+      answer: 3,
+      explain: "t<sub>R</sub>/W = 20，平方為 400，乘以 16 得 6400。選項 A (320) 是忘了平方，只算 16 × 20。"
+    },
+    {
+      q: "兩相鄰波峰 t<sub>R1</sub> = 6.0 min、t<sub>R2</sub> = 7.0 min，基線峰寬皆為 0.50 min，其解析度與判讀為何？",
+      options: ["R<sub>s</sub> = 2.0，已達基線分離", "R<sub>s</sub> = 1.0，未完全分離", "R<sub>s</sub> = 0.5，嚴重重疊", "R<sub>s</sub> = 4.0，已達基線分離"],
+      answer: 0,
+      explain: "R<sub>s</sub> = 2 × (7.0 − 6.0) ÷ (0.50 + 0.50) = 2.0，≥ 1.5 即達基線分離。選項 B 是漏乘公式中的 2。"
+    },
+    {
+      q: "依 ICH Q2，「鑑別試驗」(identification test) 原則上只需確效下列哪一項參數？",
+      options: ["準確度", "專一性", "線性", "定量極限"],
+      answer: 1,
+      explain: "鑑別試驗只需證明能正確辨認待測物、不被相似物質干擾，即專一性。準確度與線性是定量方法（如含量測定）才需要的參數。"
+    },
+    {
+      q: "分析天平長期未校正，導致所有秤重結果均偏高 0.2%。此誤差的性質為何？",
+      options: ["隨機誤差，主要影響精密度", "過失誤差，應直接剔除該數據", "系統誤差，主要影響準確度", "隨機誤差，可由增加重複次數消除"],
+      answer: 2,
+      explain: "方向固定、可追溯原因的偏差屬系統誤差，會使結果偏離真值而影響準確度。增加重複次數（選項 D）只能降低隨機誤差，對固定偏差無效。"
+    },
+    {
+      q: "以 Mohr 法用硝酸銀滴定氯離子時，下列指示劑與 pH 條件何者正確？",
+      options: ["鐵明礬，強酸性", "螢光素，任何 pH 均可", "鉻酸鉀，強酸性 (pH < 2)", "鉻酸鉀，中性至弱鹼性（約 pH 6.5–10）"],
+      answer: 3,
+      explain: "Mohr 法以鉻酸鉀為指示劑，終點生成磚紅色 Ag<sub>2</sub>CrO<sub>4</sub>；酸性下 CrO<sub>4</sub><sup>2−</sup> 轉為 Cr<sub>2</sub>O<sub>7</sub><sup>2−</sup>，強鹼下則析出 Ag<sub>2</sub>O，故須中性至弱鹼。鐵明礬加強酸是 Volhard 法的條件。"
+    },
+    {
+      q: "EDTA 與 Ca<sup>2+</sup>、Zn<sup>2+</sup>、Al<sup>3+</sup> 等多數金屬離子錯合時的莫耳比為何？",
+      options: ["1:1", "1:2（EDTA：金屬）", "2:1（EDTA：金屬）", "依金屬離子價數而定"],
+      answer: 0,
+      explain: "EDTA 為六牙配位基，與多數金屬離子不論價數皆形成 1:1 錯合物，計算因此簡單。選項 D 容易被價數誤導，但 EDTA 的計量比與價數無關。"
+    },
+    {
+      q: "「0.002050 g」共有幾位有效數字？",
+      options: ["3 位", "4 位", "6 位", "7 位"],
+      answer: 1,
+      explain: "小數點後、第一個非零數字前的 0 只用來定位，不算有效數字；2、0、5 與末尾的 0 都算，共 4 位。選項 A 漏算了末尾的 0，但小數點後的末位 0 代表測量精度，必須計入。"
+    },
+    {
+      q: "關於「安定性指示方法」(stability-indicating method)，下列敘述何者正確？",
+      options: ["必須以 UV 直接測定，不經任何分離步驟", "只要證明檢量線線性良好即可", "須能分離並準確定量主成分與降解物，通常以強制降解試驗證明其專一性", "只需在加速安定性條件下測定含量即可"],
+      answer: 2,
+      explain: "安定性指示方法的關鍵是專一性：降解物不能干擾主成分定量，因此以酸、鹼、氧化、熱、光進行強制降解來驗證，常用 HPLC。直接 UV 測定（選項 A）無法區分吸收相近的降解物，正是需要避免的情況。"
+    }
+  ]
+};
+</script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

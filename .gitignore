@@ -1,0 +1,26 @@
+# Local-only material (source zips, duplicates) — stays on this computer / OneDrive
+_local/
+
+# Photos and screenshots stay local for now
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.webp
+*.heic
+*.heif
+*.bmp
+*.tif
+*.tiff
+
+# Video and archives
+*.mp4
+*.mov
+*.m4v
+*.zip
+
+# OS / tooling noise
+.DS_Store
+__pycache__/
+*.pyc
+.claude/settings.local.json

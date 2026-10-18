@@ -1,0 +1,338 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>生藥學｜藥學常識</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700;900&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div id="app"></div>
+<script>
+window.SUBJECT = {
+  id: "pharmacognosy",
+  title: "生藥學",
+  en: "Pharmacognosy",
+  tagline: "從柳樹皮、罌粟乳汁到黴菌，藥櫃裡許多明星分子，最早都長在植物、微生物或動物身上。",
+  hook: {
+    q: "屠呦呦找到青蒿素萃取關鍵的靈感，竟來自一本約 1600 年前的急救手冊？",
+    a: "東晉葛洪《肘後備急方》記載：「青蒿一握，以水二升漬，絞取汁，盡服之」。屠呦呦注意到古人是「浸泡絞汁」而非煎煮，推想有效成分怕熱，改用低沸點的乙醚低溫萃取，終於得到高效抗瘧萃取物，並因此獲得 2015 年諾貝爾生理醫學獎。"
+  },
+  intro: {
+    lead: "生藥學（Pharmacognosy，源自希臘文 <i>pharmakon</i> 藥物 + <i>gnosis</i> 知識）研究來自植物、動物、礦物與微生物的天然藥物：它從哪裡來、長什麼樣子、含有哪些成分、怎麼鑑定真偽，以及如何把有效成分萃取出來。<br><br>它是天然物化學、植物學、藥理學與品質管制的交會點。嗎啡、阿托平、毛地黃、紫杉醇、青蒿素、盤尼西林……這些改寫醫學史的藥物，都是先在自然界被發現，再被分離、鑑定、改良成現代藥品；柳樹皮的 salicin 啟發了阿斯匹靈，山羊豆的 galegine 則是 metformin 的結構起點。<br><br>在台灣，藥師還會面對中藥材、科學中藥與保健食品，懂得生藥的來源、成分與摻偽風險，是確保用藥安全的基本功。",
+    why: [
+      "許多現代藥物直接來自天然物，或以天然物為結構起點（阿斯匹靈、warfarin、paclitaxel）",
+      "中藥材與保健食品常見同名異物、摻偽，鑑定錯誤可能致命（如馬兜鈴酸事件）",
+      "理解成分類別才能預測毒性與交互作用（強心苷、甘草酸、蒽醌瀉劑）",
+      "國考必考：生物鹼、配醣體、萜類的來源植物、鑑別反應與作用"
+    ]
+  },
+  sections: [
+    {
+      title: "生藥的命名、品質評價與摻偽",
+      body: "生藥（crude drug）指未經加工或僅經乾燥、切製等簡單處理的天然藥用原料。先認清學名與藥用部位，再從「看、聞、嚐」一路做到儀器分析，確認真偽與品質。",
+      points: [
+        "植物學名採林奈二名法（屬名＋種小名，斜體），如 <i>Papaver somniferum</i> L.；生藥拉丁名＝原植物名（屬格）＋藥用部位，如甘草 Glycyrrhizae Radix et Rhizoma",
+        "常見部位：Radix 根、Rhizoma 根莖、Cortex 樹皮、Folium 葉、Flos 花、Fructus 果實、Semen 種子、Herba 全草",
+        "摻偽（adulteration）型態：以偽品或劣品替代（substitution）、混入雜質、使用已萃取過的殘渣（exhausted drug）、變質品",
+        "同名異物最危險：中文同名「防己」，漢防己 <i>Stephania tetrandra</i> 被含馬兜鈴酸的廣防己 <i>Aristolochia fangchi</i> 誤代",
+        "顯微常數：氣孔指數（stomatal index）、柵狀細胞比（palisade ratio）、脈島數（vein-islet number），可區分近緣葉類生藥",
+        "總灰分反映無機物總量；酸不溶性灰分（acid-insoluble ash）偏高，代表混入泥沙等矽質雜質"
+      ],
+      table: {
+        caption: "生藥品質評價方法",
+        head: ["方法", "評價內容", "例子"],
+        rows: [
+          ["感官評價（organoleptic）", "形狀、顏色、氣味、味道、質地", "甘草味甜、黃連味極苦、肉桂具特殊香氣"],
+          ["顯微鑑定（microscopic）", "組織切片與粉末特徵", "氣孔類型、毛茸、草酸鈣結晶、澱粉粒"],
+          ["物理評價（physical）", "水分、灰分、浸出物、折光率、旋光度、膨脹度", "酸不溶性灰分過高 → 混入泥沙"],
+          ["化學評價（chemical）", "呈色／沉澱反應、TLC 指紋圖譜、HPLC 定量指標成分", "人參皂苷含量測定"],
+          ["生物評價（biological）", "以生物活性測定效價", "早期毛地黃以動物試驗標定效價"]
+        ]
+      },
+      clinical: "1990 年代比利時減重診所的「防己」誤用造成馬兜鈴酸腎病變與尿路上皮癌；台灣於 2003 年起禁用廣防己、青木香、關木通、馬兜鈴、天仙藤等含馬兜鈴酸藥材。"
+    },
+    {
+      title: "生合成途徑總覽：植物的化學工廠",
+      body: "植物用少數幾條「生產線」組裝出成千上萬種次級代謝物（secondary metabolites）。認得途徑，就能把看似雜亂的成分歸類。",
+      points: [
+        "莽草酸途徑（shikimic acid pathway）產生芳香族胺基酸 Phe、Tyr、Trp，再衍生出苯丙素（C<sub>6</sub>–C<sub>3</sub>）",
+        "乙酸–丙二酸途徑（acetate–malonate，聚酮 polyketide）產生脂肪酸與大黃、番瀉葉中的蒽醌",
+        "萜類以異戊二烯單位（isoprene, C<sub>5</sub>；IPP/DMAPP）組成，來自細胞質的甲羥戊酸途徑（MVA）或色素體的 MEP 途徑",
+        "黃酮類為混合來源：B 環與 C<sub>3</sub> 來自莽草酸／苯丙素，A 環來自乙酸–丙二酸",
+        "真生物鹼（true alkaloids）由胺基酸衍生：鳥胺酸 → 莨菪烷，酪胺酸 → 嗎啡，色胺酸 → 長春花鹼、奎寧"
+      ],
+      table: {
+        caption: "主要生合成途徑與產物",
+        head: ["途徑", "關鍵前驅物", "代表產物"],
+        rows: [
+          ["莽草酸", "莽草酸 → 芳香族胺基酸、桂皮酸", "苯丙素、香豆素、木酚素、沒食子酸（可水解鞣質）"],
+          ["乙酸–丙二酸", "acetyl-CoA、malonyl-CoA", "脂肪酸、蒽醌（大黃素型）、黃酮 A 環"],
+          ["甲羥戊酸（MVA）", "HMG-CoA → mevalonate → IPP（細胞質）", "倍半萜、三萜、固醇（強心苷元、皂苷元）"],
+          ["MEP／DXP", "丙酮酸＋甘油醛-3-磷酸 → IPP（色素體）", "單萜、二萜（紫杉醇）、類胡蘿蔔素"],
+          ["胺基酸途徑", "鳥胺酸、離胺酸、苯丙胺酸、酪胺酸、色胺酸", "各類生物鹼"]
+        ]
+      },
+      clinical: "Statin 類降血脂藥抑制的 HMG-CoA 還原酶，正是人體甲羥戊酸途徑的速率決定步驟酵素。"
+    },
+    {
+      title: "生物鹼：含氮的強效分子",
+      body: "生物鹼（alkaloids）是含氮、多呈鹼性、常具強烈生理活性的天然物，多數味苦。它們是生藥學中「藥效最猛」的一族。",
+      points: [
+        "通性沉澱試劑：Dragendorff（碘化鉍鉀）橘紅色、Mayer（碘化汞鉀）乳白色、Wagner（碘–碘化鉀）紅棕色、Hager（苦味酸）黃色",
+        "專一反應：莨菪烷用 Vitali-Morin 反應（紫色）；奎寧用 thalleioquin 反應（翠綠色），稀硫酸溶液呈藍色螢光；嘌呤類用 murexide 反應",
+        "咖啡因（caffeine）為嘌呤類生物鹼，不與 Mayer 試劑產生沉澱",
+        "原生物鹼（protoalkaloids）：氮原子不在雜環內，如麻黃鹼（ephedrine）、秋水仙鹼（colchicine）",
+        "嗎啡（morphine）是史上第一個被分離出的生物鹼，由德國藥師瑟圖納（Sertürner）於 19 世紀初自鴉片中取得",
+        "Atropine 是 (–)-hyoscyamine 在萃取過程中消旋化形成的外消旋體"
+      ],
+      table: {
+        caption: "代表性生物鹼",
+        head: ["藥物", "來源", "結構類型", "主要作用"],
+        rows: [
+          ["Morphine／codeine", "罌粟 <i>Papaver somniferum</i> 未熟果乳汁（鴉片）", "異喹啉類（morphinan）", "鎮痛／鎮咳"],
+          ["Atropine／scopolamine", "顛茄 <i>Atropa belladonna</i>、曼陀羅 <i>Datura</i>、天仙子 <i>Hyoscyamus niger</i>（茄科）", "莨菪烷（tropane）", "抗膽鹼：散瞳、解痙、預防暈動症"],
+          ["Quinine", "金雞納樹皮 <i>Cinchona</i> spp.（茜草科）", "喹啉（quinoline）", "抗瘧"],
+          ["Ephedrine", "麻黃 <i>Ephedra sinica</i>", "原生物鹼（苯烷胺）", "擬交感：支氣管擴張、鼻充血緩解"],
+          ["Caffeine", "咖啡 <i>Coffea arabica</i>、茶 <i>Camellia sinensis</i>", "嘌呤（purine）", "中樞神經興奮"],
+          ["Vincristine／vinblastine", "長春花 <i>Catharanthus roseus</i>", "二聚吲哚（bisindole）", "抗癌：抑制微管聚合"],
+          ["Colchicine", "秋水仙 <i>Colchicum autumnale</i>", "原生物鹼（tropolone 環）", "急性痛風：抑制微管聚合"]
+        ]
+      },
+      clinical: "Codeine 須經 CYP2D6 轉為嗎啡才有鎮痛效果；超快速代謝者可能產生嗎啡中毒，因此兒童使用受到嚴格限制。"
+    },
+    {
+      title: "配醣體：糖＋苷元的組合技",
+      body: "配醣體（glycosides）由糖基與非糖部分「苷元」（aglycone／genin）以苷鍵連接，藥理作用主要由苷元決定，糖則影響溶解度與吸收。",
+      points: [
+        "強心苷（cardiac glycosides）：固醇骨架＋C-17 不飽和內酯環；五員環為 cardenolide（毛地黃），六員環為 bufadienolide（蟾酥）",
+        "Digoxin 主要取自毛花毛地黃 <i>Digitalis lanata</i>；紫花毛地黃 <i>D. purpurea</i> 主含 digitoxin",
+        "強心苷鑑別：Keller-Kiliani 反應檢出 2-去氧糖（如 digitoxose）；Kedde、Legal、Baljet 反應檢出五員內酯環",
+        "蒽醌類瀉劑（番瀉葉、大黃、蘆薈）以配醣體形式抵達大腸，經腸道細菌水解成活性蒽酮，約 6–12 小時起效",
+        "皂苷（saponins）：會起泡、可溶血；三萜皂苷如人參皂苷（ginsenosides）、甘草酸（glycyrrhizin），固醇皂苷如薯蕷皂苷元（diosgenin，類固醇激素半合成原料）",
+        "甘草酸抑制 11β-HSD2，長期大量使用可致假性醛固酮症：低血鉀、高血壓、水腫"
+      ],
+      table: {
+        caption: "主要配醣體類別",
+        head: ["類別", "代表成分", "來源", "用途／鑑別"],
+        rows: [
+          ["強心苷", "Digoxin、digitoxin", "<i>Digitalis lanata</i>、<i>D. purpurea</i>", "心衰竭、心房顫動；Keller-Kiliani 反應"],
+          ["蒽醌苷", "Sennosides、aloin、大黃蒽醌", "番瀉葉 <i>Senna alexandrina</i>、大黃 <i>Rheum palmatum</i>、蘆薈 <i>Aloe</i>", "刺激性瀉劑；Borntrager 反應（鹼液呈紅色）"],
+          ["氰苷", "Amygdalin（苦杏仁苷）", "苦杏仁（<i>Prunus armeniaca</i> 等種子）", "水解釋出 HCN，過量致氰化物中毒"],
+          ["皂苷", "Ginsenosides、glycyrrhizin", "人參 <i>Panax ginseng</i>、甘草 <i>Glycyrrhiza uralensis</i>", "起泡試驗、溶血試驗"],
+          ["黃酮苷", "Rutin、hesperidin、baicalin", "槐花、柑橘果皮、黃芩", "抗氧化、血管保護；Shinoda 反應（Mg／HCl 呈紅色）"],
+          ["酚苷", "Salicin（水楊苷）", "柳樹皮 <i>Salix alba</i>", "體內轉為水楊酸，解熱鎮痛；阿斯匹靈的前身"]
+        ]
+      },
+      clinical: "Digoxin 治療指數窄，低血鉀會增加其毒性；嚴重中毒可用 digoxin 專一性抗體片段（Fab）解毒。"
+    },
+    {
+      title: "萜類與揮發油：異戊二烯積木",
+      body: "萜類（terpenoids）由 C<sub>5</sub> 異戊二烯單位依「頭接尾」規則組合，依碳數分類。揮發油（volatile oils）則以單萜、倍半萜與苯丙素為主，帶有香氣。",
+      points: [
+        "薄荷腦（menthol）為單萜，取自薄荷屬 <i>Mentha</i>，活化冷感受器 TRPM8 產生清涼感，用於止癢、局部止痛",
+        "青蒿素（artemisinin）為含過氧橋（endoperoxide）的倍半萜內酯，過氧橋遇血基質鐵產生自由基而殺瘧原蟲",
+        "屠呦呦（Tu Youyou）於 1970 年代自黃花蒿 <i>Artemisia annua</i>（中藥名青蒿）分離青蒿素，獲 2015 年諾貝爾生理醫學獎",
+        "紫杉醇（paclitaxel, Taxol）為二萜，最初自太平洋紫杉 <i>Taxus brevifolia</i> 樹皮分離；樹皮產量極低，現以歐洲紫杉針葉中的 10-deacetylbaccatin III 半合成或細胞培養生產",
+        "紫杉醇促進微管聚合並阻止解聚（穩定微管），與長春花鹼「抑制聚合」機轉相反，但都使細胞停在 M 期",
+        "揮發油可用濾紙測試：揮發油不留永久油斑，脂肪油留下半透明油斑"
+      ],
+      table: {
+        caption: "萜類依碳數分類",
+        head: ["類別", "碳數", "代表成分", "來源／用途"],
+        rows: [
+          ["單萜（monoterpene）", "C<sub>10</sub>", "Menthol、camphor", "薄荷、樟樹；清涼、局部刺激"],
+          ["倍半萜（sesquiterpene）", "C<sub>15</sub>", "Artemisinin", "黃花蒿；抗瘧"],
+          ["二萜（diterpene）", "C<sub>20</sub>", "Paclitaxel、ginkgolides", "紫杉、銀杏；抗癌、PAF 拮抗"],
+          ["三萜（triterpene）", "C<sub>30</sub>", "人參皂苷元、glycyrrhetinic acid", "人參、甘草"],
+          ["四萜（tetraterpene）", "C<sub>40</sub>", "β-carotene", "胡蘿蔔；維生素 A 前驅物"]
+        ]
+      },
+      clinical: "世界衛生組織建議以青蒿素類複方療法（ACT）治療惡性瘧，避免單方使用加速抗藥性產生。"
+    },
+    {
+      title: "苯丙素、鞣質、香豆素與油脂",
+      body: "這一群多為酚類或脂質成分，雖然不像生物鹼那樣猛烈，卻出了 warfarin 這種改變抗凝治療的明星，也是藥劑學常用的基劑來源。",
+      points: [
+        "苯丙素（phenylpropanoids, C<sub>6</sub>–C<sub>3</sub>）：肉桂醛（cinnamaldehyde，肉桂）、丁香酚（eugenol，丁香，牙科止痛）；木酚素鬼臼毒素（podophyllotoxin）可半合成 etoposide",
+        "鞣質（tannins）會沉澱蛋白質而具收斂性；可水解鞣質遇 FeCl<sub>3</sub> 呈藍黑色，縮合鞣質（proanthocyanidins）呈綠黑色",
+        "香豆素（coumarins）為苯駢-α-吡喃酮，鹼性下在紫外光呈藍色螢光；呋喃香豆素 psoralen 具光敏性，用於 PUVA 治療乾癬、白斑",
+        "1920 年代北美牛隻吃了發霉甜苜蓿（<i>Melilotus</i>）後大量出血；Link 團隊分離出 dicoumarol，進而開發出 warfarin",
+        "脂肪油（fixed oils）為三酸甘油酯：蓖麻油（ricinoleic acid）為刺激性瀉劑；可可脂（theobroma oil）熔點接近體溫，作栓劑基劑",
+        "油脂常數：碘價（iodine value）反映不飽和度，皂化價反映平均分子量，酸價反映游離脂肪酸（酸敗程度）"
+      ],
+      clinical: "Warfarin 為維生素 K 拮抗劑，須監測 INR，並提醒病人維持穩定的維生素 K 攝取（如深綠色蔬菜）。"
+    },
+    {
+      title: "微生物與動物來源藥物",
+      body: "黴菌與放線菌為了和其他微生物競爭而分泌抗生素；動物則提供激素、抗凝血劑與傳統藥材。",
+      points: [
+        "盤尼西林（penicillin）：1928 年 Fleming 發現青黴菌抑制葡萄球菌，1940 年代 Florey 與 Chain 量產，三人共獲 1945 年諾貝爾獎",
+        "鏈黴素（streptomycin）：1943 年 Waksman 團隊自 <i>Streptomyces griseus</i> 分離，為第一個有效的抗結核藥",
+        "放線菌（<i>Streptomyces</i>）是抗生素大宗來源：四環素、avermectin（ivermectin 前身）等",
+        "胰島素（insulin）：1921 年 Banting 與 Best 自胰臟萃取成功；早期使用牛、豬胰島素，1982 年重組人類胰島素成為第一個上市的基因重組藥物",
+        "肝素（heparin）：因最早自肝臟（hepar）萃得而得名，現多取自豬小腸黏膜，透過增強 antithrombin 作用抗凝血",
+        "紅麴菌（<i>Monascus</i>）產生的 monacolin K 與 lovastatin 為同一化合物"
+      ],
+      table: {
+        caption: "微生物與動物來源代表藥物",
+        head: ["藥物", "來源", "重點"],
+        rows: [
+          ["Penicillin", "青黴菌 <i>Penicillium</i>（工業株 <i>P. chrysogenum</i>）", "β-內醯胺，抑制細胞壁合成"],
+          ["Streptomycin", "<i>Streptomyces griseus</i>", "胺基糖苷類；耳毒性、腎毒性"],
+          ["Lovastatin", "<i>Aspergillus terreus</i>", "HMG-CoA 還原酶抑制劑"],
+          ["Heparin", "豬小腸黏膜", "抗凝血；可能引起 HIT（肝素誘發血小板低下）"],
+          ["Insulin", "早期取自牛、豬胰臟", "現以重組 DNA 技術生產"],
+          ["牛黃（Bovis Calculus）", "牛的膽結石", "含膽紅素、膽酸；清熱解毒、開竅"],
+          ["蟾酥（Bufonis Venenum）", "中華大蟾蜍、黑眶蟾蜍的耳後腺及皮膚腺分泌物", "含 bufadienolides，具強心作用但毒性大"]
+        ]
+      },
+      clinical: "2008 年部分肝素產品遭摻入過硫酸化軟骨素（OSCS），引發嚴重過敏反應，促使各國強化動物來源原料的品質檢驗。"
+    },
+    {
+      title: "萃取與分離：把有效成分請出來",
+      body: "萃取方法的選擇取決於成分的極性、揮發性與熱穩定性。萃取後再以分配、層析等方法逐步純化出單一成分。",
+      points: [
+        "怕熱成分選冷法（浸漬、滲漉、超臨界），耐熱成分可用熱回流或索氏萃取",
+        "揮發油多以水蒸氣蒸餾取得；柑橘類果皮油易受熱變質，常用冷壓榨法（expression）",
+        "生物鹼的酸鹼分配法：鹽類溶於水，游離鹼溶於有機溶劑，藉調整 pH 反覆轉移以純化",
+        "層析分離：TLC 用於快速鑑別，管柱層析與 HPLC 用於分離與定量",
+        "超臨界 CO<sub>2</sub> 臨界點約 31 °C、7.4 MPa，可在接近室溫下操作且無有機溶劑殘留，常用於咖啡去咖啡因"
+      ],
+      table: {
+        caption: "常見萃取方法比較",
+        head: ["方法", "原理", "特點／適用"],
+        rows: [
+          ["浸漬法（maceration）", "室溫下以溶劑浸泡並定時攪拌", "適合熱敏感成分；耗時、萃取不完全"],
+          ["滲漉法（percolation）", "溶劑由上而下持續流經藥材粉末", "維持濃度差，較浸漬完全；常用於製備酊劑"],
+          ["索氏萃取（Soxhlet extraction）", "溶劑加熱回流、虹吸循環", "溶劑用量少、萃取完全；不適合熱不穩定成分"],
+          ["煎煮法（decoction）", "以水加熱煮沸", "中藥湯劑；適合水溶性且耐熱成分"],
+          ["水蒸氣蒸餾（steam distillation）", "揮發性、不溶於水的成分隨水蒸氣餾出", "揮發油，如薄荷油、丁香油"],
+          ["超臨界流體萃取（SFE）", "以超臨界 CO<sub>2</sub> 為溶劑", "低溫、無溶劑殘留；去咖啡因、植物精油"]
+        ]
+      },
+      clinical: "台灣常見的中藥濃縮製劑（俗稱科學中藥）多以水煎煮萃取後濃縮，再加入賦形劑製成顆粒或細粒。"
+    }
+  ],
+  mnemonics: [
+    { title: "生物鹼沉澱試劑顏色", text: "「德橘、梅白、華棕、哈黃」：Dragendorff 橘紅、Mayer 乳白、Wagner 紅棕、Hager（苦味酸）黃。" },
+    { title: "萜類碳數階梯", text: "C<sub>5</sub> 積木一路疊：薄荷單萜 10、青蒿倍半 15、紫杉二萜 20、參草三萜 30、胡蘿蔔四萜 40。" },
+    { title: "強心苷內酯環", text: "「毛地黃五、蟾酥六」：cardenolide（毛地黃）為五員內酯環，bufadienolide（蟾酥）為六員內酯環。" },
+    { title: "微管藥物：一拆一黏", text: "長春花鹼、秋水仙鹼「不讓鷹架蓋起來」（抑制聚合）；紫杉醇「把鷹架黏死拆不掉」（穩定微管）。結果都讓細胞卡在 M 期。" },
+    { title: "Aspirin 拆字", text: "A（acetyl 乙醯基）＋ spir（<i>Spiraea</i> 繡線菊）＋ in（藥名字尾），一個名字藏著它的天然出身。" },
+    { title: "Warfarin 拆字", text: "WARF（Wisconsin Alumni Research Foundation，資助研究的威斯康辛校友研究基金會）＋ arin（取自 coumarin）。" }
+  ],
+  flashcards: [
+    { front: "生藥（crude drug）的定義", back: "未經加工或僅經乾燥、切製等簡單處理的天然藥用原料" },
+    { front: "Radix／Rhizoma／Folium／Semen", back: "根／根莖／葉／種子" },
+    { front: "酸不溶性灰分偏高代表什麼？", back: "藥材混入泥沙等矽質雜質" },
+    { front: "Keller-Kiliani 反應檢出什麼？", back: "強心苷中的 2-去氧糖（如 digitoxose）" },
+    { front: "Borntrager 反應", back: "檢出游離蒽醌：加鹼後鹼性層呈紅色" },
+    { front: "青蒿素抗瘧的必要結構", back: "過氧橋（endoperoxide）" },
+    { front: "Vitali-Morin 反應用於？", back: "莨菪烷生物鹼（如 atropine、scopolamine），呈紫色" },
+    { front: "咖啡因的鑑別反應", back: "Murexide 反應（嘌呤類）；咖啡因不與 Mayer 試劑沉澱" },
+    { front: "甘草酸過量的副作用", back: "假性醛固酮症：低血鉀、高血壓、水腫" },
+    { front: "馬兜鈴酸事件的原因", back: "「防己」同名異物：含馬兜鈴酸的廣防己誤代漢防己，造成腎病變與尿路上皮癌" },
+    { front: "超臨界 CO<sub>2</sub> 萃取的優點", back: "接近室溫操作、無有機溶劑殘留（臨界點約 31 °C、7.4 MPa）" },
+    { front: "紅麴的 monacolin K", back: "與 lovastatin 為同一化合物，抑制 HMG-CoA 還原酶" }
+  ],
+  quiz: [
+    {
+      q: "以 Dragendorff 試劑檢測生物鹼，陽性結果為何種顏色的沉澱？",
+      options: ["橘紅色", "乳白色", "翠綠色", "紫色"],
+      answer: 0,
+      explain: "Dragendorff 試劑（碘化鉍鉀）與生物鹼形成橘紅色沉澱。乳白色是 Mayer 試劑（碘化汞鉀）的結果，容易混淆。"
+    },
+    {
+      q: "臨床使用的 digoxin 主要萃取自下列哪一種植物？",
+      options: ["<i>Digitalis purpurea</i>", "<i>Strophanthus gratus</i>", "<i>Digitalis lanata</i>", "<i>Nerium oleander</i>"],
+      answer: 2,
+      explain: "Digoxin 主要來自毛花毛地黃 <i>D. lanata</i>。紫花毛地黃 <i>D. purpurea</i> 雖同屬，但主要含 digitoxin，不含 digoxin。"
+    },
+    {
+      q: "青蒿素（artemisinin）抗瘧活性所必需的結構為何？",
+      options: ["α-亞甲基內酯", "過氧橋（endoperoxide）", "苷鍵", "喹啉環"],
+      answer: 1,
+      explain: "青蒿素的過氧橋遇血基質中的鐵分解產生自由基，破壞瘧原蟲；失去過氧橋的 deoxyartemisinin 即無抗瘧活性。喹啉環是奎寧的結構，不是青蒿素。"
+    },
+    {
+      q: "欲自薄荷葉取得薄荷油，最適合的方法為何？",
+      options: ["索氏萃取法", "浸漬法", "煎煮法", "水蒸氣蒸餾法"],
+      answer: 3,
+      explain: "薄荷油為揮發性且不溶於水的成分，可隨水蒸氣餾出後與水分層。煎煮法雖然也加熱，但揮發油會散失，無法收集。"
+    },
+    {
+      q: "關於 atropine 的敘述，何者正確？",
+      options: ["為 scopolamine 的去甲基衍生物", "為 hyoscyamine 消旋化後的外消旋體", "主要來源為罌粟科植物", "屬於異喹啉類生物鹼"],
+      answer: 1,
+      explain: "Atropine 是 (–)-hyoscyamine 在萃取過程中消旋化形成的 (±)-hyoscyamine，屬茄科的莨菪烷生物鹼。罌粟科與異喹啉類是嗎啡的特徵。"
+    },
+    {
+      q: "抗凝血藥 warfarin 的開發，源自下列哪一事件？",
+      options: ["牛隻食用發霉甜苜蓿後出血不止", "柳樹皮用於退燒", "毛地黃用於治療水腫", "金雞納樹皮用於治療瘧疾"],
+      answer: 0,
+      explain: "發霉甜苜蓿中的香豆素轉變為 dicoumarol，使牛隻出血；Link 團隊分離出 dicoumarol 後開發出 warfarin。柳樹皮的故事導向的是阿斯匹靈。"
+    },
+    {
+      q: "長期大量服用甘草（glycyrrhizin），最可能出現下列何種情形？",
+      options: ["高血鉀、低血壓", "低血糖", "嚴重便秘", "低血鉀、高血壓、水腫"],
+      answer: 3,
+      explain: "甘草酸抑制 11β-HSD2，使皮質醇持續活化礦物皮質素受體，造成鈉水滯留與排鉀，即假性醛固酮症。選項 A 的電解質方向正好相反。"
+    },
+    {
+      q: "紫杉醇（paclitaxel）在萜類分類上屬於下列何者？",
+      options: ["單萜", "倍半萜", "二萜", "三萜"],
+      answer: 2,
+      explain: "紫杉醇是由 C<sub>20</sub> 骨架構成的二萜。倍半萜（C<sub>15</sub>）的代表是青蒿素，兩者常被混淆。"
+    },
+    {
+      q: "下列哪一個天然來源的抗癌藥，作用機轉為促進微管聚合並抑制其解聚？",
+      options: ["Vincristine", "Colchicine", "Paclitaxel", "Vinblastine"],
+      answer: 2,
+      explain: "Paclitaxel 穩定微管、阻止解聚。Vincristine、vinblastine 與 colchicine 則是抑制微管聚合，機轉相反。"
+    },
+    {
+      q: "苦杏仁苷（amygdalin）經酵素水解後，會釋出下列哪一種有毒物質？",
+      options: ["氫氰酸（HCN）", "草酸", "秋水仙鹼", "馬兜鈴酸"],
+      answer: 0,
+      explain: "Amygdalin 為氰苷，水解後生成葡萄糖、苯甲醛與氫氰酸，過量可致氰化物中毒。馬兜鈴酸是馬兜鈴屬植物本身的成分，與氰苷無關。"
+    },
+    {
+      q: "某批生藥的酸不溶性灰分（acid-insoluble ash）明顯偏高，最可能的原因為何？",
+      options: ["水分含量過高", "揮發油含量過高", "摻入澱粉", "混入泥沙等矽質雜質"],
+      answer: 3,
+      explain: "酸不溶性灰分主要為二氧化矽，偏高表示混入泥沙。摻入澱粉屬有機物，灼燒後幾乎不留灰分，不會使酸不溶性灰分上升。"
+    },
+    {
+      q: "番瀉葉與大黃的瀉下作用，主要來自哪一類成分？",
+      options: ["強心苷", "蒽醌配醣體", "三萜皂苷", "黃酮配醣體"],
+      answer: 1,
+      explain: "番瀉苷等蒽醌配醣體到達大腸後經細菌水解為活性蒽酮，刺激腸道蠕動。皂苷的特徵是起泡與溶血，不是主要瀉下成分。"
+    },
+    {
+      q: "阿斯匹靈的天然前驅物 salicin，最早由下列哪一種植物的樹皮得知？",
+      options: ["毛地黃", "罌粟", "柳樹", "金雞納樹"],
+      answer: 2,
+      explain: "柳樹皮（<i>Salix</i>）含水楊苷，在體內轉為水楊酸而解熱鎮痛，後來 Bayer 將水楊酸乙醯化成阿斯匹靈。金雞納樹皮同樣用於退燒，但它的成分是抗瘧的奎寧。"
+    },
+    {
+      q: "關於麻黃鹼（ephedrine）的敘述，何者正確？",
+      options: ["來源植物為 <i>Papaver somniferum</i>", "屬於原生物鹼，氮原子不在雜環內", "屬於嘌呤類生物鹼", "為膽鹼受體拮抗劑"],
+      answer: 1,
+      explain: "Ephedrine 取自麻黃 <i>Ephedra sinica</i>，為苯烷胺類原生物鹼，作用為擬交感。嘌呤類生物鹼是咖啡因，不是麻黃鹼。"
+    },
+    {
+      q: "第一個有效治療結核病的抗生素 streptomycin，是由下列哪一種微生物產生？",
+      options: ["<i>Streptomyces griseus</i>", "<i>Penicillium chrysogenum</i>", "<i>Acremonium chrysogenum</i>", "<i>Aspergillus terreus</i>"],
+      answer: 0,
+      explain: "Waksman 團隊於 1943 年自放線菌 <i>Streptomyces griseus</i> 分離出 streptomycin。<i>Penicillium chrysogenum</i> 是盤尼西林的工業生產菌株。"
+    }
+  ]
+};
+</script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

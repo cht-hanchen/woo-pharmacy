@@ -1,0 +1,319 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>生物藥劑學｜藥學常識</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700;900&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div id="app"></div>
+<script>
+window.SUBJECT = {
+  id: "biopharmaceutics",
+  title: "生物藥劑學",
+  en: "Biopharmaceutics & Pharmacokinetics",
+  tagline: "同一顆藥，有人吃了沒效、有人吃了中毒，答案就藏在藥物進出身體的數學裡。",
+  hook: {
+    q: "醫師常叮嚀服用 felodipine 等降血壓藥時別喝葡萄柚汁。你知道這個交互作用其實是「意外」發現的嗎？",
+    a: "1989 年加拿大學者 Bailey 等人研究酒精與 felodipine 的交互作用，用葡萄柚汁掩蓋酒味，結果發現受試者的 felodipine 血中濃度明顯高於以往研究。後來證實葡萄柚中的呋喃香豆素（furanocoumarins）會不可逆地抑制腸壁 CYP3A4，減少首渡效應，使生體可用率上升。"
+  },
+  intro: {
+    lead: "生物藥劑學（biopharmaceutics）研究劑型與藥物性質如何影響吸收；藥物動力學（pharmacokinetics, PK）則用數學描述藥物在體內的吸收、分布、代謝、排除（ADME），回答「身體對藥物做了什麼」。<br><br>它把劑量、血中濃度與時間連成一條可預測的曲線：多久吃一次、第一劑要不要加量、腎功能差要減多少，背後都是同一套公式。<br><br>從學名藥的生體相等性審查、醫院的治療藥物監測（TDM），到依腎功能或基因型調整劑量，這門學科是藥師把「標準劑量」變成「個人化劑量」的核心工具。",
+    why: [
+      "決定給藥劑量、給藥間隔與是否需要負荷劑量",
+      "判斷學名藥能否與原廠藥互相替代（生體相等性）",
+      "腎功能不全、老人、兒童的劑量調整都靠 PK 推算",
+      "解釋交互作用與 TDM 數據，是藥師國考必考重點"
+    ]
+  },
+  sections: [
+    {
+      title: "LADME 與吸收機轉：藥物如何穿過細胞膜",
+      body: "口服藥物須經釋放（Liberation）、吸收（Absorption）、分布（Distribution）、代謝（Metabolism）、排除（Excretion），合稱 LADME。多數藥物以被動擴散穿過脂質雙層膜，少數依賴載體或被外排蛋白擋回。",
+      points: [
+        "被動擴散（passive diffusion）遵循 Fick 定律：速率 = D·A·K·(C<sub>腸</sub> − C<sub>血</sub>)/h，順濃度梯度、不耗能、不飽和",
+        "載體媒介運輸（carrier-mediated）：具飽和性、結構專一性與競爭抑制；主動運輸可逆濃度梯度並耗 ATP，促進性擴散則不耗能",
+        "例：levodopa 經胺基酸轉運體吸收，高蛋白餐會與之競爭；valacyclovir 經 PEPT1 吸收",
+        "P-醣蛋白（P-glycoprotein, P-gp）是腸道、血腦屏障、腎小管的外排幫浦，會把 digoxin、loperamide 等受質泵回腸腔或血液",
+        "pH 分配假說（pH-partition hypothesis）：只有非離子型、脂溶性高的分子易穿膜；弱酸 pH − pK<sub>a</sub> = log([A<sup>−</sup>]/[HA])，弱鹼 pK<sub>a</sub> − pH = log([BH<sup>+</sup>]/[B])",
+        "限制：弱酸在胃中雖多為非離子型，但小腸表面積大得多，實際吸收仍以小腸為主"
+      ],
+      clinical: "amiodarone、verapamil 等 P-gp 抑制劑可使 digoxin 血中濃度上升，併用時常需降低 digoxin 劑量並監測濃度。"
+    },
+    {
+      title: "影響口服吸收的因素",
+      body: "固體藥物必須先溶解才能被吸收，接著要通過胃排空、食物與腸肝首渡代謝這幾道關卡。任何一關卡住，生體可用率就打折。",
+      points: [
+        "Noyes-Whitney 方程式：dC/dt = D·A·(C<sub>s</sub> − C)/h；減小粒徑（增加表面積 A）、成鹽提高溶解度 C<sub>s</sub> 都能加快溶離（dissolution）",
+        "胃排空（gastric emptying）：多數藥物主要在小腸吸收，排空越快通常吸收越快；metoclopramide 加速，抗膽鹼藥、鴉片類、高脂餐延緩",
+        "食物效應：高脂餐增加 griseofulvin 吸收；tetracycline 與乳製品或含鈣、鎂、鋁、鐵製劑螯合而吸收下降；alendronate 須空腹以白開水服用",
+        "首渡效應（first-pass effect）：口服藥經腸壁 CYP3A4 與肝臟代謝後才進入全身循環，nitroglycerin、propranolol、lidocaine 首渡效應大",
+        "避開首渡的途徑：舌下（nitroglycerin）、靜脈、經皮、直腸（部分避開）"
+      ],
+      clinical: "propranolol 口服劑量遠高於靜脈劑量，正是因為大量藥物在第一次通過肝臟時就被代謝掉。"
+    },
+    {
+      title: "BCS 分類、生體可用率與生體相等性",
+      body: "生物藥劑分類系統（Biopharmaceutics Classification System, BCS）依溶解度與腸道通透性把藥物分成四類，可預測吸收的瓶頸。生體可用率（bioavailability, F）衡量進入全身循環的比例，生體相等性（bioequivalence, BE）則判斷學名藥能否替代原廠藥。",
+      points: [
+        "高溶解度：最高劑量可溶於 ≤ 250 mL、pH 1.2–6.8 的水性介質；高通透性：吸收分率 ≥ 85%（ICH M9）",
+        "生物豁免（biowaiver）：BCS 第 I 類（及符合條件的第 III 類）速溶製劑，可用體外溶離試驗取代人體 BE 試驗",
+        "絕對生體可用率：F = (AUC<sub>oral</sub> × Dose<sub>iv</sub>) / (AUC<sub>iv</sub> × Dose<sub>oral</sub>)",
+        "相對生體可用率：以另一非靜脈劑型為參考，F<sub>rel</sub> = (AUC<sub>test</sub> × Dose<sub>ref</sub>) / (AUC<sub>ref</sub> × Dose<sub>test</sub>)",
+        "BE 判定：健康受試者交叉試驗，C<sub>max</sub> 與 AUC 的幾何平均比值（test/reference）90% 信賴區間須落在 80.00–125.00%",
+        "C<sub>max</sub> 反映吸收速率與程度，AUC 反映吸收程度，T<sub>max</sub> 反映吸收速率"
+      ],
+      table: {
+        caption: "BCS 四大類別",
+        head: ["類別", "溶解度 / 通透性", "吸收瓶頸", "代表藥物"],
+        rows: [
+          ["第 I 類", "高 / 高", "胃排空", "metoprolol、propranolol"],
+          ["第 II 類", "低 / 高", "溶離速率", "carbamazepine、ibuprofen、ketoconazole"],
+          ["第 III 類", "高 / 低", "腸膜通透", "atenolol、metformin、cimetidine"],
+          ["第 IV 類", "低 / 低", "溶離與通透皆受限", "furosemide、hydrochlorothiazide（文獻分類略有出入）"]
+        ]
+      },
+      clinical: "BE 的 80–125% 指的是「平均比值的信賴區間」，並不是說學名藥的血中濃度可以差到 20%。"
+    },
+    {
+      title: "分布：Vd、蛋白結合與血腦屏障",
+      body: "表觀分布體積（apparent volume of distribution, Vd）把體內藥量與血中濃度連起來：Vd = 體內藥量 / C。它是「假想」的容積，數值可以遠大於人體實際體積。",
+      points: [
+        "Vd 大代表藥物大量分布或結合於組織（digoxin、amiodarone）；Vd 小代表多留在血漿（warfarin、heparin）",
+        "只有游離型（unbound）藥物能分布、作用與被排除；f<sub>u</sub> 為游離分率",
+        "白蛋白（albumin）主要結合酸性藥物（warfarin、phenytoin）；α<sub>1</sub>-酸性醣蛋白（α<sub>1</sub>-acid glycoprotein）主要結合鹼性藥物（lidocaine、propranolol）",
+        "低白蛋白或尿毒症時 phenytoin 游離分率上升，總濃度看似正常也可能中毒，應測游離濃度或校正",
+        "血腦屏障（blood-brain barrier, BBB）：內皮細胞緊密連接加上 P-gp 外排，只有小分子、脂溶性、非離子型藥物容易進入；腦膜發炎時 penicillin 穿透增加"
+      ],
+      table: {
+        caption: "Vd 與分布空間（以 70 kg 成人估算）",
+        head: ["Vd 範圍", "相當於", "例子"],
+        rows: [
+          ["約 3–5 L", "血漿容積", "heparin"],
+          ["約 12–18 L", "細胞外液", "aminoglycosides"],
+          ["約 42 L（0.6 L/kg）", "全身體液", "ethanol"],
+          ["遠大於 42 L", "組織廣泛結合", "digoxin（約 7 L/kg）、amiodarone"]
+        ]
+      },
+      clinical: "loperamide 是 P-gp 受質，一般劑量下幾乎無法進入中樞，所以能止瀉而少有鴉片類中樞作用。"
+    },
+    {
+      title: "清除：肝臟與腎臟的排水口",
+      body: "清除率（clearance, CL）是單位時間內被完全清除藥物的血漿體積，是決定維持劑量的關鍵參數。總清除率等於肝、腎及其他途徑清除率之和。",
+      points: [
+        "CL = k × Vd；靜脈給藥 CL = Dose / AUC",
+        "肝清除率 CL<sub>H</sub> = Q<sub>H</sub> × E（Q<sub>H</sub> 為肝血流，E 為肝萃取率 hepatic extraction ratio）",
+        "腎清除率 = 過濾 + 分泌 − 再吸收；過濾清除率 = f<sub>u</sub> × GFR。CL<sub>R</sub> 大於 f<sub>u</sub>×GFR 表示有淨分泌，小於則有淨再吸收",
+        "probenecid 抑制腎小管有機陰離子分泌，可延長 penicillin 作用",
+        "肌酸酐清除率（CrCl）估算 GFR，Cockcroft-Gault：CrCl = (140 − 年齡) × 體重 / (72 × SCr)，女性再 × 0.85",
+        "肌酸酐有少量腎小管分泌，故 CrCl 略高估真實 GFR"
+      ],
+      table: {
+        caption: "肝萃取率高低的比較",
+        head: ["特性", "高萃取率（E > 0.7）", "低萃取率（E < 0.3）"],
+        rows: [
+          ["清除主要受限於", "肝血流", "肝酵素活性與 f<sub>u</sub>"],
+          ["首渡效應", "大，口服 F 低", "小"],
+          ["受酵素誘導/抑制影響", "較小", "較大"],
+          ["代表藥物", "lidocaine、propranolol、morphine", "warfarin、phenytoin、theophylline"]
+        ]
+      },
+      clinical: "心衰竭或休克使肝血流下降時，lidocaine 這類高萃取率藥物清除變慢，容易累積中毒。"
+    },
+    {
+      title: "動力學模型：單室、雙室、一級與零級",
+      body: "把身體想成一個均勻混合的水槽，就是單室模式（one-compartment model）。大多數藥物在治療濃度下屬一級動力學，每單位時間排除「固定比例」；少數藥物酵素飽和後變成零級，每單位時間只排除「固定量」。",
+      points: [
+        "靜脈快速注射（IV bolus）：C = C<sub>0</sub>·e<sup>−kt</sup>，C<sub>0</sub> = Dose / Vd；ln C 對 t 作圖為直線，斜率 = −k",
+        "t<sub>½</sub> = 0.693 / k = 0.693 × Vd / CL；AUC<sub>0→∞</sub> = Dose / CL = C<sub>0</sub> / k",
+        "Michaelis-Menten：速率 = V<sub>max</sub>·C / (K<sub>m</sub> + C)；C ≪ K<sub>m</sub> 為一級，C ≫ K<sub>m</sub> 趨近零級",
+        "phenytoin 的 K<sub>m</sub> 落在治療濃度範圍內，劑量小增即可能使濃度不成比例暴增；ethanol、高劑量 aspirin 也呈飽和動力學",
+        "雙室模式（two-compartment model）：C = A·e<sup>−αt</sup> + B·e<sup>−βt</sup>，先有快速分布相（α），再進入排除相（β）"
+      ],
+      table: {
+        caption: "一級 vs 零級動力學",
+        head: ["比較", "一級（first-order）", "零級（zero-order）"],
+        rows: [
+          ["每單位時間排除", "固定比例", "固定量"],
+          ["半衰期", "恆定，與濃度無關", "隨濃度改變"],
+          ["劑量與濃度關係", "成比例（線性）", "不成比例（非線性）"],
+          ["例子", "多數藥物", "ethanol、高濃度 phenytoin"]
+        ]
+      },
+      clinical: "digoxin 有明顯分布相，應於給藥後至少 6 小時再採血，否則測到的高濃度無法反映心肌中的藥量。"
+    },
+    {
+      title: "多次給藥、穩定狀態與負荷劑量",
+      body: "想像一個浴缸：水龍頭是給藥速率，排水口是清除率，浴缸大小是 Vd。當流入等於流出，水位不再變化，就是穩定狀態（steady state）。",
+      points: [
+        "達穩定狀態約需 4–5 個半衰期（約 94–97%），只取決於 t<sub>½</sub>，與劑量大小無關",
+        "平均穩定濃度：C<sub>ss,avg</sub> = F × Dose / (CL × τ)，τ 為給藥間隔；連續輸注 C<sub>ss</sub> = R<sub>0</sub> / CL",
+        "負荷劑量（loading dose）= C<sub>ss</sub> × Vd / F：一次把浴缸裝到目標水位",
+        "維持劑量（maintenance dose）= C<sub>ss</sub> × CL × τ / F：每次補回漏掉的量",
+        "蓄積因子 R = 1 / (1 − e<sup>−kτ</sup>)；當 τ = t<sub>½</sub> 時 R = 2",
+        "τ 越長，峰谷濃度波動越大；緩釋劑型可縮小波動"
+      ],
+      table: {
+        caption: "藥動學公式速查",
+        head: ["參數", "公式"],
+        rows: [
+          ["半衰期", "t<sub>½</sub> = 0.693 / k"],
+          ["分布體積", "Vd = Dose / C<sub>0</sub>"],
+          ["清除率", "CL = k × Vd = Dose / AUC"],
+          ["絕對生體可用率", "F = (AUC<sub>po</sub>·Dose<sub>iv</sub>) / (AUC<sub>iv</sub>·Dose<sub>po</sub>)"],
+          ["平均穩定濃度", "C<sub>ss,avg</sub> = F·Dose / (CL·τ)"],
+          ["負荷劑量", "LD = C<sub>ss</sub>·Vd / F"],
+          ["維持劑量", "MD = C<sub>ss</sub>·CL·τ / F"]
+        ]
+      },
+      clinical: "amiodarone 半衰期長達數十天，若不給負荷劑量要等好幾個月才達穩定狀態。"
+    },
+    {
+      title: "TDM 與個體化給藥：腎功能、年齡與基因",
+      body: "治療藥物監測（therapeutic drug monitoring, TDM）適用於治療指數狹窄、個體差異大、濃度與療效或毒性相關良好的藥物。再加上腎功能、年齡、基因型的差異，才能把標準劑量調成適合眼前病人的劑量。",
+      points: [
+        "腎功能不全：依 CrCl 減少劑量或延長給藥間隔；劑量調整因子 Q = 1 − f<sub>e</sub>(1 − CrCl<sub>病人</sub>/CrCl<sub>正常</sub>)，f<sub>e</sub> 為原形經腎排除分率；負荷劑量通常不必調整",
+        "老年人：GFR 下降、體脂增加使脂溶性藥物（如 diazepam）Vd 變大、半衰期延長；肌肉量少，SCr 正常不代表腎功能正常",
+        "兒童：新生兒葡萄醣醛酸化不成熟（chloramphenicol 灰嬰症候群）、體液比例高使水溶性藥物 Vd/kg 較大；幼兒每公斤代謝能力常高於成人（如 theophylline）",
+        "CYP2D6：codeine 需轉成 morphine；超快速代謝者有嗎啡中毒風險，弱代謝者止痛效果差",
+        "CYP2C19：clopidogrel 是前驅藥，弱代謝者活化不足、抗血小板效果下降；東亞族群弱代謝者比例較白人高",
+        "NAT2 乙醯化：慢速乙醯化者（slow acetylator）使用 isoniazid 較易發生周邊神經病變，hydralazine、procainamide 較易引發藥物性紅斑性狼瘡"
+      ],
+      table: {
+        caption: "常見 TDM 藥物（參考範圍依機構與適應症而異）",
+        head: ["藥物", "常用目標濃度", "監測重點"],
+        rows: [
+          ["digoxin", "0.5–2.0 ng/mL（心衰竭常以 0.5–1.0 為目標）", "給藥後 ≥ 6 h 採血；低血鉀、腎功能差易中毒"],
+          ["vancomycin", "AUC<sub>24</sub>/MIC 400–600（傳統以谷濃度 10–20 mg/L）", "腎毒性；現行指引建議以 AUC 監測"],
+          ["aminoglycosides（gentamicin）", "傳統給藥：峰 5–10 mg/L、谷 < 2 mg/L", "濃度依賴型殺菌；腎毒性、耳毒性"],
+          ["phenytoin", "總濃度 10–20 mg/L；游離 1–2 mg/L", "非線性動力學；低白蛋白時看游離濃度"],
+          ["lithium", "0.6–1.2 mEq/L（給藥後約 12 h）", "thiazide、NSAIDs、ACEI、脫水會使濃度上升"],
+          ["theophylline", "10–20 mg/L（許多建議 5–15）", "抽菸誘導 CYP1A2 使濃度下降；ciprofloxacin、fluvoxamine 使濃度上升"]
+        ]
+      },
+      clinical: "台灣健保給付 carbamazepine 使用前檢測 HLA-B*1502，這屬於藥物基因體學中的免疫型不良反應預防，而非藥動學差異。"
+    }
+  ],
+  mnemonics: [
+    { title: "浴缸五次就滿", text: "每過一個半衰期補一半：50% → 75% → 87.5% → 93.75% → 96.9%。「4–5 個半衰期達穩態」，停藥後清空也一樣算法。" },
+    { title: "酸酸鹼鹼，不解離", text: "弱酸在酸性環境、弱鹼在鹼性環境多為非離子型，容易穿膜。反過來，鹼化尿液可「困住」弱酸（如 aspirin、phenobarbital）加速排除。" },
+    { title: "BCS：一順二溶三穿四皆難", text: "第 I 類一路順暢；第 II 類卡在溶解；第 III 類卡在穿膜；第 IV 類兩關都難。" },
+    { title: "負荷看 V，維持看 CL", text: "負荷劑量是把浴缸裝滿，取決於浴缸大小（Vd）；維持劑量是補回漏水，取決於排水口大小（CL）。" },
+    { title: "Cockcroft-Gault 口訣", text: "「140 減年齡，乘體重，除以 72 乘肌酸酐，女生再打 85 折」。" },
+    { title: "TDM 六大常客：地萬安苯鋰茶", text: "毛地黃（digoxin）、萬古黴素（vancomycin）、胺基醣苷（aminoglycosides）、苯妥英（phenytoin）、鋰鹽（lithium）、茶鹼（theophylline）。" }
+  ],
+  flashcards: [
+    { front: "Fick 擴散定律", back: "被動擴散速率 = D·A·K·ΔC / h；與面積、分配係數、濃度差成正比，與膜厚成反比" },
+    { front: "P-醣蛋白（P-gp）的作用", back: "外排轉運蛋白，把受質（如 digoxin）泵出細胞，降低口服吸收與腦部分布" },
+    { front: "絕對生體可用率公式", back: "F = (AUC<sub>oral</sub> × Dose<sub>iv</sub>) / (AUC<sub>iv</sub> × Dose<sub>oral</sub>)" },
+    { front: "生體相等性判定標準", back: "C<sub>max</sub> 與 AUC 幾何平均比值的 90% 信賴區間落在 80.00–125.00%" },
+    { front: "Vd 的定義", back: "Vd = 體內藥量 / 血中濃度；為表觀容積，可大於人體總體液量" },
+    { front: "清除率兩種算法", back: "CL = k × Vd；靜脈給藥時 CL = Dose / AUC" },
+    { front: "一級動力學半衰期", back: "t<sub>½</sub> = 0.693 / k，與濃度及劑量無關" },
+    { front: "達穩定狀態所需時間", back: "約 4–5 個半衰期，與劑量、給藥間隔無關" },
+    { front: "負荷劑量公式", back: "LD = C<sub>ss</sub> × Vd / F" },
+    { front: "平均穩定濃度公式", back: "C<sub>ss,avg</sub> = F × Dose / (CL × τ)" },
+    { front: "Michaelis-Menten 動力學代表藥", back: "phenytoin、ethanol、高劑量 aspirin；濃度 ≫ K<sub>m</sub> 時趨近零級" },
+    { front: "Cockcroft-Gault 公式", back: "CrCl = (140 − 年齡) × 體重 / (72 × SCr)；女性 × 0.85" }
+  ],
+  quiz: [
+    {
+      q: "依 pH 分配假說，弱酸性藥物 aspirin（pK<sub>a</sub> ≈ 3.5）在胃液（pH ≈ 1.5）中主要呈現何種狀態？",
+      options: ["以離子型為主，難以穿膜", "以非離子型為主，脂溶性高、有利穿膜", "解離程度與 pH 無關", "完全離子化後由胃黏膜主動運輸"],
+      answer: 1,
+      explain: "弱酸 log([A<sup>−</sup>]/[HA]) = pH − pK<sub>a</sub> = −2，約 99% 為非離子型。「離子型為主」是弱鹼在胃中的情形；但實際上因小腸表面積大，aspirin 仍主要在小腸吸收。"
+    },
+    {
+      q: "某藥物一級排除速率常數 k = 0.0693 h<sup>−1</sup>，其半衰期為多少？",
+      options: ["0.1 h", "6.93 h", "10 h", "14.4 h"],
+      answer: 2,
+      explain: "t<sub>½</sub> = 0.693 / 0.0693 = 10 h。14.4 h 是 1/k，誤把倒數當成半衰期。"
+    },
+    {
+      q: "某藥靜脈快速注射 500 mg 後，外推得 C<sub>0</sub> = 10 mg/L，其表觀分布體積 Vd 為？",
+      options: ["50 L", "5 L", "500 L", "0.02 L"],
+      answer: 0,
+      explain: "Vd = Dose / C<sub>0</sub> = 500 mg ÷ 10 mg/L = 50 L。0.02 L 是把分子分母顛倒（10/500）的結果。"
+    },
+    {
+      q: "某藥 k = 0.1 h<sup>−1</sup>、Vd = 40 L，其總清除率 CL 為？",
+      options: ["0.0025 L/h", "40 L/h", "400 L/h", "4 L/h"],
+      answer: 3,
+      explain: "CL = k × Vd = 0.1 h<sup>−1</sup> × 40 L = 4 L/h。400 L/h 是誤用 Vd ÷ k。"
+    },
+    {
+      q: "某藥口服 200 mg 得 AUC = 40 mg·h/L；同一受試者靜脈注射 100 mg 得 AUC = 50 mg·h/L。口服的絕對生體可用率 F 為？",
+      options: ["0.8", "0.4", "0.2", "1.6"],
+      answer: 1,
+      explain: "F = (40 × 100) / (50 × 200) = 4000 / 10000 = 0.4。0.8 是只比較 AUC（40/50）而忘了校正劑量差異。"
+    },
+    {
+      q: "欲使某藥血中濃度立即達到 10 mg/L，已知 Vd = 50 L、口服 F = 0.5，口服負荷劑量應為？",
+      options: ["250 mg", "500 mg", "1000 mg", "2000 mg"],
+      answer: 2,
+      explain: "LD = C<sub>ss</sub> × Vd / F = 10 × 50 / 0.5 = 1000 mg。500 mg 是忘了除以 F。"
+    },
+    {
+      q: "某藥 F = 0.8、CL = 5 L/h，每 8 小時口服 500 mg，達穩定狀態時平均血中濃度 C<sub>ss,avg</sub> 約為？",
+      options: ["10 mg/L", "8 mg/L", "12.5 mg/L", "100 mg/L"],
+      answer: 0,
+      explain: "C<sub>ss,avg</sub> = F × Dose / (CL × τ) = 0.8 × 500 / (5 × 8) = 400 / 40 = 10 mg/L。12.5 mg/L 是漏乘 F 的結果。"
+    },
+    {
+      q: "某藥靜脈注射後 C<sub>0</sub> = 80 mg/L，t<sub>½</sub> = 4 h（一級排除），12 小時後血中濃度約為？",
+      options: ["40 mg/L", "20 mg/L", "5 mg/L", "10 mg/L"],
+      answer: 3,
+      explain: "12 h ÷ 4 h = 3 個半衰期，80 × (½)<sup>3</sup> = 10 mg/L。20 mg/L 只算了 2 個半衰期。"
+    },
+    {
+      q: "80 歲男性，體重 72 kg，血清肌酸酐 1.0 mg/dL，以 Cockcroft-Gault 公式估算 CrCl 約為？",
+      options: ["51 mL/min", "60 mL/min", "72 mL/min", "86 mL/min"],
+      answer: 1,
+      explain: "CrCl = (140 − 80) × 72 / (72 × 1.0) = 60 mL/min。51 mL/min 是乘上女性校正 0.85 後的數值，本題為男性不需校正。"
+    },
+    {
+      q: "某藥物溶解度低、腸道通透性高，依 BCS 屬於哪一類？其口服吸收的速率限制步驟通常為何？",
+      options: ["第 I 類；胃排空", "第 III 類；腸膜通透", "第 II 類；溶離（dissolution）", "第 IV 類；溶離與通透皆受限"],
+      answer: 2,
+      explain: "低溶解度、高通透性為第 II 類，吸收受溶離速率限制，可用微粒化、固體分散體等提高溶離。第 III 類是高溶解度、低通透性，瓶頸在穿膜。"
+    },
+    {
+      q: "癲癇病人 phenytoin 由 300 mg/day 增至 400 mg/day 後，穩定血中濃度不成比例地大幅上升並出現眼振。最主要的原因為何？",
+      options: ["肝臟代謝酵素趨於飽和，呈 Michaelis-Menten 非線性動力學", "藥物屬一級動力學，濃度本應等比例增加", "血漿蛋白結合率突然增加", "腎小管分泌增加"],
+      answer: 0,
+      explain: "phenytoin 的 K<sub>m</sub> 落在治療濃度內，代謝接近飽和，劑量小增便使濃度暴增。若為一級動力學，濃度只會等比例上升約 33%。"
+    },
+    {
+      q: "學名藥與原廠藥進行生體相等性試驗，一般判定相等的標準為何？",
+      options: ["每位受試者的 C<sub>max</sub> 與 AUC 都須落在原廠的 ±20% 內", "AUC 平均值差異須小於 10%", "T<sub>max</sub> 相差不超過 1 小時", "C<sub>max</sub> 與 AUC 幾何平均比值的 90% 信賴區間落在 80.00–125.00%"],
+      answer: 3,
+      explain: "BE 以對數轉換後的 C<sub>max</sub>、AUC 幾何平均比值的 90% 信賴區間判定，須完全落在 80.00–125.00%。這是群體平均比較，並非要求每位受試者都在 ±20% 內。"
+    },
+    {
+      q: "某藥 f<sub>u</sub> = 0.5，腎清除率為 200 mL/min，病人 GFR = 120 mL/min。下列推論何者正確？",
+      options: ["僅經腎絲球過濾排除", "有淨腎小管再吸收", "有淨腎小管分泌", "資料不足，無法判斷"],
+      answer: 2,
+      explain: "過濾清除率 = f<sub>u</sub> × GFR = 0.5 × 120 = 60 mL/min，實際 CL<sub>R</sub> 200 &gt; 60，表示有淨分泌。若 CL<sub>R</sub> 小於 60 才代表有淨再吸收。"
+    },
+    {
+      q: "CYP2C19 弱代謝者（poor metabolizer）服用 clopidogrel，最可能出現什麼情形？",
+      options: ["活性代謝物生成減少，抗血小板效果減弱", "原形藥蓄積導致出血風險大增", "藥效完全不受影響", "代謝加速而需減量"],
+      answer: 0,
+      explain: "clopidogrel 是前驅藥，需經 CYP2C19 活化；弱代謝者活性代謝物少，心血管事件風險較高。「原形藥蓄積、作用增強」適用於原形即具活性的藥物（如 PPI 在弱代謝者濃度較高），不適用於前驅藥。"
+    },
+    {
+      q: "digoxin 的 Vd 約 7 L/kg，遠大於人體總體液量（約 0.6 L/kg），最合理的解釋是？",
+      options: ["藥物主要留在血漿中", "藥物與血漿蛋白高度結合", "測量誤差，Vd 不可能超過體液量", "藥物廣泛分布並結合於組織（如骨骼肌 Na<sup>+</sup>/K<sup>+</sup>-ATPase）"],
+      answer: 3,
+      explain: "Vd 是表觀容積，藥物大量結合於組織使血中濃度低，算出的 Vd 就很大。高度血漿蛋白結合反而會讓藥物留在血中、Vd 變小（如 warfarin）。"
+    }
+  ]
+};
+</script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>藥理學｜藥學常識</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700;900&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div id="app"></div>
+<script>
+window.SUBJECT = {
+  id: "pharmacology",
+  title: "藥理學",
+  en: "Pharmacology",
+  tagline: "同一個受體，鑰匙轉得動是藥，卡住不動也是藥：藥理學就是讀懂這把鎖的學問。",
+  hook: {
+    q: "你知道很多人每天吃的降血壓藥，靈感來自一條巴西毒蛇的毒液嗎？",
+    a: "巴西矛頭蝮（<i>Bothrops jararaca</i>）的毒液含有能抑制血管收縮素轉化酶（ACE）的胜肽，讓獵物血壓驟降。藥廠科學家以這些胜肽為模板，在 1970 年代設計出第一個口服 ACE 抑制劑 captopril，成為依標的結構設計藥物的經典案例。"
+  },
+  intro: {
+    lead: "藥理學（pharmacology）研究藥物如何與生物體交互作用，分成兩個方向：<b>藥效學</b>（pharmacodynamics, PD）問「藥物對身體做了什麼」，也就是作用在哪個受體、產生什麼效應；<b>藥動學</b>（pharmacokinetics, PK）問「身體對藥物做了什麼」，也就是吸收（Absorption）、分布（Distribution）、代謝（Metabolism）、排除（Excretion），合稱 ADME。<br><br>本頁以藥效學與各大藥物類別為主：從受體、劑量–反應曲線，到自律神經、中樞神經、心血管、抗感染與 NSAIDs，最後收在 CYP450 交互作用與不良反應。<br><br>在藥局，藥理學是你回答「這兩個藥能一起吃嗎？」「為什麼吃了會乾咳？」的底氣；在藥師國考，它是「藥理學與藥物化學」科目的核心，也是藥物治療學的地基。",
+    why: [
+      "懂機轉就能推理副作用與禁忌，不必死背",
+      "辨識危險交互作用（如 CYP3A4 抑制劑＋statin），守住用藥安全",
+      "藥師國考必考，也是藥物治療學與臨床藥學的基礎",
+      "向病人解釋「為什麼」，能提升信任與服藥遵從性"
+    ]
+  },
+  sections: [
+    {
+      title: "受體與藥物–受體交互作用",
+      body: "多數藥物的效應始於與受體（receptor）結合，就像鑰匙插進鎖孔：有的鑰匙能轉動（致效劑），有的只轉一半（部分致效劑），有的插進去就卡住別人（拮抗劑）。",
+      points: [
+        "親和力（affinity）決定藥物與受體結合的難易；內在活性（intrinsic activity）決定結合後能否啟動反應",
+        "四大受體家族：配體門控離子通道（如 nicotinic、GABA<sub>A</sub>）、G 蛋白偶合受體（GPCR，如 β、M、μ）、酵素連結受體（如胰島素受體酪胺酸激酶）、細胞內／核受體（如類固醇、甲狀腺素）",
+        "反應速度：離子通道為毫秒級，GPCR 為秒到分鐘，核受體需轉錄合成蛋白，要數小時以上",
+        "部分致效劑（partial agonist）單獨使用時有效應，但與完全致效劑併用時會「搶位」而表現出拮抗作用",
+        "反向致效劑（inverse agonist）作用於具基礎活性（constitutive activity）的受體，把活性壓到基礎值以下；許多 H<sub>1</sub> 抗組織胺屬此類"
+      ],
+      table: {
+        caption: "四種配體的比較",
+        head: ["類型", "親和力", "內在活性", "代表例"],
+        rows: [
+          ["完全致效劑（full agonist）", "有", "1（最大）", "morphine（μ）、isoproterenol（β）"],
+          ["部分致效劑（partial agonist）", "有", "介於 0 與 1 之間", "buprenorphine（μ）、pindolol（β）"],
+          ["拮抗劑（antagonist）", "有", "0", "naloxone（μ）、propranolol（β）"],
+          ["反向致效劑（inverse agonist）", "有", "負值（壓低基礎活性）", "多數 H<sub>1</sub> 抗組織胺"]
+        ]
+      },
+      clinical: "Buprenorphine 是高親和力的 μ 部分致效劑，給剛用過海洛因的人可能把完全致效劑擠下受體而誘發戒斷，因此需等出現戒斷徵象後才開始給藥。"
+    },
+    {
+      title: "劑量–反應：ED50、LD50 與治療指數",
+      body: "以對數劑量對反應作圖會得到 S 形曲線。曲線在 X 軸的位置代表效價強度，曲線的高度代表最大效能；拮抗劑則會讓曲線平移或被壓低。",
+      points: [
+        "漸進式（graded）曲線看個體反應強度；量子式（quantal）曲線看族群中「有／無」反應的比例，用來求 ED<sub>50</sub>、TD<sub>50</sub>、LD<sub>50</sub>",
+        "ED<sub>50</sub>：50% 個體出現療效的劑量；LD<sub>50</sub>：50% 實驗動物死亡的劑量",
+        "治療指數（therapeutic index, TI）＝ TD<sub>50</sub>／ED<sub>50</sub>（動物實驗常用 LD<sub>50</sub>／ED<sub>50</sub>）；TI 越小越危險，如 digoxin、lithium、warfarin、aminoglycosides 常需治療藥物監測（TDM）",
+        "效價（potency）看 ED<sub>50</sub> 或 EC<sub>50</sub>，數值越小越強；效能（efficacy）看最大效應 E<sub>max</sub>，臨床上效能通常比效價重要",
+        "競爭性拮抗劑使曲線右移、E<sub>max</sub> 不變；非競爭性或不可逆拮抗劑使 E<sub>max</sub> 下降，加大致效劑劑量也無法克服"
+      ],
+      table: {
+        caption: "拮抗劑對致效劑劑量–反應曲線的影響",
+        head: ["拮抗類型", "EC50", "Emax", "高劑量致效劑可否克服", "例子"],
+        rows: [
+          ["競爭性（可逆）", "上升（右移）", "不變", "可以", "naloxone 對 morphine；atropine 對 ACh"],
+          ["非競爭性／不可逆", "多半不變", "下降", "不行", "phenoxybenzamine（不可逆 α 阻斷）"]
+        ]
+      },
+      clinical: "Warfarin 治療指數窄，併用藥物稍微改變其濃度就可能出血或栓塞，所以需定期監測 INR。"
+    },
+    {
+      title: "自律神經系統藥物",
+      body: "自律神經分為交感（戰或逃）與副交感（休息與消化）。把每種受體在哪個器官、活化後做什麼記熟，致效劑與阻斷劑的療效與副作用幾乎都能推出來。",
+      points: [
+        "擬膽鹼藥：直接致效劑 bethanechol（術後尿滯留）、pilocarpine（青光眼、口乾）；乙醯膽鹼酯酶（AChE）抑制劑 neostigmine、pyridostigmine（重症肌無力）、donepezil（阿茲海默症）",
+        "有機磷農藥不可逆抑制 AChE 造成膽鹼過量；解毒用 atropine（拮抗 M 受體）＋ pralidoxime（2-PAM，需在酵素「老化」前給予才能使 AChE 再活化）",
+        "抗膽鹼藥：atropine、scopolamine（暈動症）、ipratropium／tiotropium（COPD）、oxybutynin（膀胱過動）；副作用為口乾、便秘、尿滯留、視力模糊，閉角型青光眼與攝護腺肥大者慎用",
+        "腎上腺素致效劑：epinephrine（過敏性休克首選）、norepinephrine（敗血性休克）、phenylephrine（α<sub>1</sub>）、clonidine（中樞 α<sub>2</sub>，降血壓）、dobutamine（β<sub>1</sub>）、salbutamol（β<sub>2</sub>，擴張支氣管）",
+        "α<sub>1</sub> 阻斷劑（prazosin、doxazosin、tamsulosin）用於高血壓或攝護腺肥大，注意首劑姿勢性低血壓；β 阻斷劑分非選擇性（propranolol）、β<sub>1</sub> 選擇性（atenolol、metoprolol、bisoprolol）與兼阻 α<sub>1</sub>（carvedilol、labetalol）"
+      ],
+      table: {
+        caption: "主要自律神經受體速查",
+        head: ["受體", "主要位置", "活化後效應", "代表藥"],
+        rows: [
+          ["M<sub>2</sub>", "心臟", "心跳變慢", "atropine 阻斷可使心跳加快"],
+          ["M<sub>3</sub>", "平滑肌、外分泌腺", "支氣管收縮、腺體分泌、縮瞳", "pilocarpine（致效）、tiotropium（阻斷）"],
+          ["α<sub>1</sub>", "血管平滑肌、瞳孔放大肌", "血管收縮、散瞳", "phenylephrine（致效）、prazosin（阻斷）"],
+          ["α<sub>2</sub>", "突觸前神經末梢、中樞", "抑制正腎上腺素釋放", "clonidine（致效）"],
+          ["β<sub>1</sub>", "心臟、腎臟近腎絲球細胞", "心跳與收縮力增加、腎素釋放", "dobutamine（致效）、atenolol（阻斷）"],
+          ["β<sub>2</sub>", "支氣管、骨骼肌血管、子宮", "支氣管擴張、血管擴張、子宮鬆弛", "salbutamol（致效）"]
+        ]
+      },
+      clinical: "非選擇性 β 阻斷劑阻斷 β<sub>2</sub> 會誘發支氣管收縮，氣喘病人應避免；β 阻斷劑也會掩蔽低血糖的心悸與顫抖（但出汗不受影響）。"
+    },
+    {
+      title: "中樞神經系統藥物",
+      body: "中樞藥物多在調控神經傳導物質：GABA 負責踩煞車，多巴胺與血清素影響情緒與思考，μ 受體掌管疼痛。療效與副作用往往是同一個機轉的兩面。",
+      points: [
+        "Benzodiazepines（diazepam、lorazepam、alprazolam）結合 GABA<sub>A</sub> 受體，增加 Cl<sup>-</sup> 通道「開啟頻率」；barbiturates 則延長「開啟時間」；BZD 過量的解毒劑為 flumazenil",
+        "鴉片類（morphine、fentanyl）作用於 μ 受體：止痛、呼吸抑制、針尖瞳孔、便秘；過量用 naloxone；縮瞳與便秘幾乎不產生耐受性",
+        "抗憂鬱藥：SSRI（fluoxetine、sertraline、escitalopram）較安全，但通常需 2～4 週才見效；TCA（amitriptyline、imipramine）另有抗膽鹼、α<sub>1</sub> 阻斷與心毒性；MAOI（phenelzine、tranylcypromine）需避開含 tyramine 食物",
+        "SSRI 併用 MAOI、tramadol、linezolid 等可能引發血清素症候群（serotonin syndrome）：高熱、肌陣攣、意識改變；SSRI 與 MAOI 互換需有洗除期",
+        "典型抗精神病藥（haloperidol、chlorpromazine）以 D<sub>2</sub> 阻斷為主，易有錐體外症候群（EPS）與高泌乳素血症；非典型（clozapine、olanzapine、risperidone、quetiapine）兼阻 5-HT<sub>2A</sub>，EPS 較少但體重、血糖、血脂等代謝副作用較多"
+      ],
+      table: {
+        caption: "常考中樞藥物的毒性與處置",
+        head: ["藥物類別", "作用機轉", "關鍵毒性／注意", "解毒劑或處置"],
+        rows: [
+          ["Benzodiazepines", "增強 GABA<sub>A</sub>（增加開啟頻率）", "嗜睡、依賴；併用酒精加重呼吸抑制", "flumazenil"],
+          ["Opioids", "μ 受體致效", "呼吸抑制、縮瞳、便秘", "naloxone"],
+          ["TCA", "抑制 NE／5-HT 再回收", "過量：昏迷、抽搐、心毒性（QRS 變寬）", "碳酸氫鈉（sodium bicarbonate）"],
+          ["MAOI", "抑制單胺氧化酶", "併用 tyramine 食物致高血壓危象", "飲食衛教；換藥需洗除期"],
+          ["Clozapine", "多受體拮抗（含 5-HT<sub>2A</sub>、D<sub>4</sub>）", "顆粒性白血球缺乏症", "定期監測白血球／ANC"]
+        ]
+      },
+      clinical: "1952 年法國醫師把原本用於麻醉輔助的 chlorpromazine 用在精神病人身上，效果出乎意料，開啟了現代精神藥理學。"
+    },
+    {
+      title: "心血管藥物",
+      body: "心血管藥物圍繞幾件事：降低血管阻力、減輕心臟負擔、調整體液量、控制血脂與心律。腎素–血管收縮素–醛固酮系統（RAAS）是最常被攻擊的目標。",
+      points: [
+        "ACEI（-pril：captopril、enalapril）阻斷 Ang I 轉為 Ang II，同時減少 bradykinin 分解，因而有乾咳、血管水腫；另可能高血鉀",
+        "ARB（-sartan：losartan、valsartan）直接阻斷 AT<sub>1</sub> 受體，乾咳少；ACEI 與 ARB 皆禁用於懷孕（胎兒腎臟毒性）",
+        "CCB：dihydropyridine 類（nifedipine、amlodipine）主要作用於血管，副作用為頭痛、潮紅、腳踝水腫、牙齦增生；非 DHP 類（verapamil、diltiazem）作用於心臟，可致心搏過緩與房室傳導阻滯，verapamil 易便秘",
+        "Statins 抑制 HMG-CoA 還原酶（膽固醇合成的速率決定步驟），使肝臟 LDL 受體增加；注意肌肉病變／橫紋肌溶解與肝指數上升",
+        "抗心律不整藥 Vaughan Williams 分類：I 類鈉通道阻斷、II 類 β 阻斷、III 類鉀通道阻斷（amiodarone、sotalol，延長 QT）、IV 類 CCB（verapamil、diltiazem）"
+      ],
+      table: {
+        caption: "利尿劑比較",
+        head: ["類別", "作用部位", "代表藥", "電解質／代謝影響"],
+        rows: [
+          ["碳酸酐酶抑制劑", "近曲小管", "acetazolamide", "代謝性酸中毒、低血鉀"],
+          ["Loop 利尿劑", "亨利氏環升枝粗段（Na<sup>+</sup>-K<sup>+</sup>-2Cl<sup>-</sup>）", "furosemide", "低血鉀、低血鈣、低血鎂、耳毒性"],
+          ["Thiazide 類", "遠曲小管（Na<sup>+</sup>-Cl<sup>-</sup>）", "hydrochlorothiazide", "低血鉀、低血鈉、高血鈣、高尿酸、高血糖"],
+          ["保鉀型", "集尿管", "spironolactone、amiloride", "高血鉀；spironolactone 可致男性女乳症"]
+        ]
+      },
+      clinical: "Amiodarone 雖是廣效抗心律不整藥，但需追蹤肺纖維化、甲狀腺功能（亢進或低下）與肝功能，並提醒病人防曬。"
+    },
+    {
+      title: "抗感染藥物：機轉與關鍵毒性",
+      body: "抗菌藥追求「選擇性毒性」：打擊細菌有、人類沒有或不同的構造。細胞壁、30S／50S 核糖體與 DNA 旋轉酶都是經典靶點。",
+      points: [
+        "β-lactams（penicillins、cephalosporins、carbapenems）結合青黴素結合蛋白（PBP），抑制細胞壁肽聚醣的交叉連結（transpeptidation），屬殺菌性；細菌的 β-lactamase 可被 clavulanic acid、sulbactam、tazobactam 抑制",
+        "Aminoglycosides（gentamicin、amikacin、tobramycin）結合 30S，殺菌且濃度依賴；進入菌體需耗氧運輸，對厭氧菌無效；主要毒性為耳毒性與腎毒性，常需 TDM",
+        "Macrolides（erythromycin、clarithromycin、azithromycin）結合 50S 抑制轉位，多為抑菌；erythromycin 刺激 motilin 受體致腸胃不適；erythromycin 與 clarithromycin 是強 CYP3A4 抑制劑，也可能延長 QT",
+        "Fluoroquinolones（ciprofloxacin、levofloxacin、moxifloxacin）抑制 DNA 旋轉酶（topoisomerase II）與 topoisomerase IV；注意肌腱炎／斷裂、QT 延長，且須與含鈣、鎂、鋁、鐵製劑錯開服用（螯合降低吸收）"
+      ],
+      table: {
+        caption: "四大類抗菌藥比較",
+        head: ["類別", "作用靶點", "殺菌／抑菌", "關鍵毒性"],
+        rows: [
+          ["β-lactams", "PBP（細胞壁合成）", "殺菌", "過敏反應（含過敏性休克）"],
+          ["Aminoglycosides", "30S 核糖體", "殺菌", "耳毒性、腎毒性、神經肌肉阻斷"],
+          ["Macrolides", "50S 核糖體", "抑菌為主", "腸胃不適、QT 延長、CYP3A4 抑制"],
+          ["Fluoroquinolones", "DNA 旋轉酶／topoisomerase IV", "殺菌", "肌腱斷裂、QT 延長、兒童軟骨毒性疑慮"]
+        ]
+      },
+      clinical: "1928 年 Alexander Fleming 發現被青黴菌汙染的培養皿周圍細菌長不起來，這個意外後來成為 penicillin。"
+    },
+    {
+      title: "NSAIDs 與 COX",
+      body: "NSAIDs 抑制環氧化酶（cyclooxygenase, COX），減少前列腺素生成而達到解熱、止痛、抗發炎。前列腺素同時保護胃黏膜、維持腎血流，所以療效與副作用來自同一個開關。",
+      points: [
+        "COX-1 多為恆定表現（constitutive）：保護胃黏膜、血小板合成 TXA<sub>2</sub>、維持腎血流",
+        "COX-2 主要在發炎時被誘導（inducible），但在腎臟與血管內皮也有恆定表現",
+        "Aspirin 以乙醯化「不可逆」抑制 COX；血小板沒有細胞核無法再合成 COX，所以低劑量即可抗血小板，效果持續約血小板壽命（7～10 天）",
+        "一般 NSAIDs（ibuprofen、naproxen、diclofenac）為可逆抑制，常見副作用為消化性潰瘍出血、腎功能下降、血壓上升與水腫",
+        "COX-2 選擇性抑制劑（celecoxib）腸胃副作用較少，但心血管風險受關注，rofecoxib 即於 2004 年因此下市",
+        "Acetaminophen 能解熱止痛但幾乎不抗發炎、不傷胃；過量造成肝毒性，解毒劑為 N-acetylcysteine（NAC）"
+      ],
+      table: {
+        caption: "常見解熱鎮痛藥比較",
+        head: ["藥物", "COX 選擇性", "抑制方式", "重點"],
+        rows: [
+          ["Aspirin", "偏 COX-1", "不可逆（乙醯化）", "低劑量抗血小板；兒童病毒感染時避免（雷氏症候群 Reye syndrome）"],
+          ["Ibuprofen、naproxen", "非選擇性", "可逆", "腸胃與腎臟副作用"],
+          ["Celecoxib", "COX-2 選擇性", "可逆", "腸胃較安全，但需注意心血管風險"],
+          ["Acetaminophen", "周邊作用弱，以中樞為主", "可逆", "無抗發炎作用；過量肝毒性"]
+        ]
+      },
+      clinical: "若在低劑量 aspirin 之前先吃 ibuprofen，ibuprofen 可能先占住血小板 COX-1，削弱 aspirin 的抗血小板效果。"
+    },
+    {
+      title: "藥物交互作用、CYP450 與不良反應",
+      body: "藥物交互作用最常見的舞台是肝臟與腸道的細胞色素 P450（CYP450）。誘導劑讓酵素變多、受質濃度下降；抑制劑讓酵素變慢、受質濃度上升，對治療指數窄的藥物尤其危險。",
+      points: [
+        "CYP3A4 代謝的藥物種類最多；其他重要亞型有 CYP2D6、CYP2C9、CYP2C19、CYP1A2",
+        "誘導劑：rifampin、carbamazepine、phenytoin、phenobarbital、聖約翰草（St. John's wort）、長期飲酒；吸菸誘導 CYP1A2。誘導需合成新酵素，數天至數週才達最大效果",
+        "抑制劑：azole 類抗黴菌藥（ketoconazole、itraconazole）、clarithromycin、erythromycin、ritonavir、葡萄柚汁（腸道 CYP3A4）、cimetidine、amiodarone；抑制作用通常較快出現",
+        "前驅藥（prodrug）情況相反：clopidogrel 需經 CYP2C19 活化，強 CYP2C19 抑制劑（如 omeprazole）可能降低其效果",
+        "不良反應分類：A 型（augmented）與劑量相關、可預測，如 β 阻斷劑致心搏過緩；B 型（bizarre）與劑量無關、難預測，如過敏與特異體質反應"
+      ],
+      table: {
+        caption: "經典 CYP 交互作用",
+        head: ["併用組合", "機轉", "後果"],
+        rows: [
+          ["Rifampin ＋ 口服避孕藥", "CYP3A4 誘導", "避孕失敗"],
+          ["Simvastatin ＋ clarithromycin", "CYP3A4 抑制", "statin 濃度上升，橫紋肌溶解風險"],
+          ["Warfarin ＋ fluconazole 或 metronidazole", "CYP2C9 抑制", "INR 上升、出血"],
+          ["Terfenadine ＋ ketoconazole", "CYP3A4 抑制", "QT 延長、torsades de pointes（terfenadine 因而下市）"],
+          ["Theophylline ＋ ciprofloxacin", "CYP1A2 抑制", "theophylline 中毒（抽搐、心律不整）"]
+        ]
+      },
+      clinical: "葡萄柚汁對腸道 CYP3A4 的抑制可持續一天以上，所以光是錯開服藥時間，並不足以避免它與 felodipine、simvastatin 等藥的交互作用。"
+    }
+  ],
+  mnemonics: [
+    {
+      title: "抗膽鹼中毒：五個「as a」",
+      text: "Hot as a hare（體溫上升、無汗）、Dry as a bone（皮膚與口腔乾燥）、Red as a beet（皮膚潮紅）、Blind as a bat（散瞳、視力模糊）、Mad as a hatter（譫妄、躁動）；再加 Full as a flask（尿滯留）。"
+    },
+    {
+      title: "膽鹼過量（有機磷中毒）：DUMBBELSS",
+      text: "Diarrhea 腹瀉、Urination 頻尿、Miosis 縮瞳、Bronchorrhea／Bronchospasm 支氣管分泌與收縮、Bradycardia 心搏過緩、Emesis 嘔吐、Lacrimation 流淚、Salivation 流涎、Sweating 出汗。解毒：atropine ＋ pralidoxime。"
+    },
+    {
+      title: "核糖體次單元：Buy AT 30, CCEL at 50",
+      text: "30S：<b>A</b>minoglycosides、<b>T</b>etracyclines；50S：<b>C</b>hloramphenicol、<b>C</b>lindamycin、<b>E</b>rythromycin（macrolides）、<b>L</b>inezolid。"
+    },
+    {
+      title: "CYP 誘導劑 CRAP GPS／抑制劑 SICKFACES.COM",
+      text: "誘導：Carbamazepine、Rifampin、Alcohol（長期）、Phenytoin、Griseofulvin、Phenobarbital、St. John's wort。抑制：Sodium valproate、Isoniazid、Cimetidine、Ketoconazole、Fluconazole、Alcohol（急性大量）、Chloramphenicol、Erythromycin、Sulfonamides、Ciprofloxacin、Omeprazole、Metronidazole，再加上葡萄柚汁。"
+    },
+    {
+      title: "抗心律不整分類：Some Block Potassium Channels",
+      text: "I 類 <b>S</b>odium 鈉通道阻斷、II 類 <b>B</b>eta 阻斷、III 類 <b>P</b>otassium 鉀通道阻斷、IV 類 <b>C</b>alcium 鈣通道阻斷。"
+    },
+    {
+      title: "看字尾猜類別",
+      text: "-pril：ACEI；-sartan：ARB；-olol：β 阻斷劑；-dipine：DHP 類 CCB；-statin：HMG-CoA 還原酶抑制劑；-azosin：α<sub>1</sub> 阻斷劑；-floxacin：fluoroquinolones；-azepam／-azolam：benzodiazepines。"
+    }
+  ],
+  flashcards: [
+    { front: "藥效學 vs 藥動學", back: "藥效學：藥物對身體做什麼（受體、效應）；藥動學：身體對藥物做什麼（ADME）" },
+    { front: "治療指數（TI）公式", back: "TI ＝ TD<sub>50</sub>／ED<sub>50</sub>（動物常用 LD<sub>50</sub>／ED<sub>50</sub>）；TI 越小越需 TDM" },
+    { front: "效價 vs 效能", back: "效價看 ED<sub>50</sub>（越小越強）；效能看最大效應 E<sub>max</sub>" },
+    { front: "競爭性拮抗劑對劑量–反應曲線的影響", back: "曲線右移、E<sub>max</sub> 不變，可用高劑量致效劑克服" },
+    { front: "有機磷中毒的解毒劑", back: "Atropine（拮抗 M 受體）＋ pralidoxime（2-PAM，使 AChE 再活化）" },
+    { front: "BZD 與 barbiturates 對 GABA<sub>A</sub> 的差別", back: "BZD 增加 Cl<sup>-</sup> 通道開啟頻率；barbiturates 延長開啟時間" },
+    { front: "鴉片類過量三徵與解毒劑", back: "昏迷、針尖瞳孔、呼吸抑制；解毒劑 naloxone" },
+    { front: "ACEI 為何會乾咳？", back: "ACE 也分解 bradykinin；抑制後 bradykinin 蓄積刺激呼吸道，可改用 ARB" },
+    { front: "Aminoglycosides 兩大毒性", back: "耳毒性與腎毒性（另有神經肌肉阻斷）" },
+    { front: "Fluoroquinolones 的作用靶點", back: "DNA 旋轉酶（topoisomerase II）與 topoisomerase IV" },
+    { front: "低劑量 aspirin 為何能抗血小板？", back: "不可逆乙醯化 COX-1；血小板無核無法再生 COX，TXA<sub>2</sub> 抑制持續約 7～10 天" },
+    { front: "Rifampin 對 CYP450 的影響", back: "強效誘導劑（含 CYP3A4），降低口服避孕藥、warfarin 等藥物濃度" }
+  ],
+  quiz: [
+    {
+      q: "研究藥物在體內吸收、分布、代謝與排除過程的學門是：",
+      options: ["藥效學（pharmacodynamics）", "藥動學（pharmacokinetics）", "藥物基因體學（pharmacogenomics）", "生藥學（pharmacognosy）"],
+      answer: 1,
+      explain: "ADME 是藥動學的核心，描述「身體對藥物做什麼」。藥效學研究的是藥物與受體作用後產生的效應，方向正好相反，最容易混淆。"
+    },
+    {
+      q: "在固定劑量的競爭性拮抗劑存在下，致效劑的劑量–反應曲線會如何改變？",
+      options: ["向左平移，E<sub>max</sub> 不變", "不平移，E<sub>max</sub> 下降", "向右平移，E<sub>max</sub> 不變", "向右平移，E<sub>max</sub> 下降"],
+      answer: 2,
+      explain: "競爭性拮抗劑與致效劑搶同一個結合位，提高致效劑濃度即可勝出，所以需要更高劑量（右移），但最大反應不變。E<sub>max</sub> 下降是非競爭性或不可逆拮抗劑的特徵。"
+    },
+    {
+      q: "某藥 ED<sub>50</sub> 為 10 mg/kg，TD<sub>50</sub> 為 40 mg/kg，其治療指數為何？",
+      options: ["4", "0.25", "30", "400"],
+      answer: 0,
+      explain: "TI ＝ TD<sub>50</sub>／ED<sub>50</sub> ＝ 40／10 ＝ 4。0.25 是把分子分母顛倒的結果；30 是兩者相減，並非治療指數的定義。"
+    },
+    {
+      q: "藥物 A 的 ED<sub>50</sub> 為 1 mg，藥物 B 為 10 mg，兩者最大效應相同。下列敘述何者正確？",
+      options: ["B 的效價較強", "A 的效能較高", "B 的治療指數一定較大", "A 的效價較強，兩者效能相同"],
+      answer: 3,
+      explain: "效價看達到半數效應所需的劑量，A 只需 1 mg 所以效價較強；效能看最大效應，兩者相同。效價強不代表效能高，而治療指數還需要毒性資料才能判斷。"
+    },
+    {
+      q: "長期使用海洛因者若立即給予 buprenorphine，可能誘發戒斷症狀，主要原因為何？",
+      options: ["Buprenorphine 為 μ 受體反向致效劑", "Buprenorphine 誘導 CYP3A4，加速海洛因代謝", "Buprenorphine 是高親和力的 μ 受體部分致效劑，取代完全致效劑後整體效應下降", "Buprenorphine 為 μ 受體不可逆拮抗劑"],
+      answer: 2,
+      explain: "部分致效劑的內在活性小於完全致效劑，它以高親和力占據受體後，整體 μ 受體活化反而下降，表現為類似拮抗的戒斷。它不是反向致效劑，也不是純拮抗劑。"
+    },
+    {
+      q: "下列何者「不是」atropine 中毒的典型表現？",
+      options: ["瞳孔縮小", "皮膚潮紅乾燥", "心搏過速", "尿滯留"],
+      answer: 0,
+      explain: "Atropine 阻斷 M 受體，瞳孔括約肌無法收縮而造成散瞳（blind as a bat）。瞳孔縮小反而是有機磷或鴉片類中毒的表現。"
+    },
+    {
+      q: "有機磷農藥中毒的病人，下列何種組合最適合作為解毒處置？",
+      options: ["Neostigmine ＋ pralidoxime", "Physostigmine ＋ atropine", "Flumazenil ＋ naloxone", "Atropine ＋ pralidoxime"],
+      answer: 3,
+      explain: "有機磷不可逆抑制 AChE 造成乙醯膽鹼蓄積；atropine 拮抗 M 受體症狀，pralidoxime 在酵素老化前使 AChE 再活化。Neostigmine 與 physostigmine 本身就是 AChE 抑制劑，會讓中毒更嚴重。"
+    },
+    {
+      q: "一位氣喘病人合併高血壓，下列哪一個藥物最應避免？",
+      options: ["Amlodipine", "Propranolol", "Losartan", "Hydrochlorothiazide"],
+      answer: 1,
+      explain: "Propranolol 為非選擇性 β 阻斷劑，阻斷支氣管 β<sub>2</sub> 受體可誘發支氣管痙攣。Amlodipine、losartan 與 thiazide 不作用於 β<sub>2</sub> 受體，對氣喘病人相對安全。"
+    },
+    {
+      q: "Flumazenil 可用於逆轉下列哪一類藥物過量？",
+      options: ["Benzodiazepines", "Opioids", "Tricyclic antidepressants", "Barbiturates"],
+      answer: 0,
+      explain: "Flumazenil 是 GABA<sub>A</sub> 受體上 BZD 結合位的競爭性拮抗劑。鴉片類過量要用 naloxone；barbiturates 結合位不同，flumazenil 無效。"
+    },
+    {
+      q: "服用 phenelzine 的病人吃了大量熟成起司與紅酒後，出現劇烈頭痛與血壓急遽上升，最可能的機轉是：",
+      options: ["血清素再回收被抑制", "多巴胺 D<sub>2</sub> 受體被阻斷", "腸道與肝臟 MAO 被抑制，tyramine 無法代謝而促使大量正腎上腺素釋放", "CYP3A4 被誘導"],
+      answer: 2,
+      explain: "Phenelzine 是非選擇性 MAOI，食物中的 tyramine 原本會在腸道與肝臟被 MAO-A 分解；累積後進入交感神經末梢置換出大量正腎上腺素，造成高血壓危象（cheese reaction）。抑制血清素再回收是 SSRI 的機轉。"
+    },
+    {
+      q: "服用 enalapril 後出現持續乾咳，最主要的原因為何？",
+      options: ["Angiotensin II 蓄積", "醛固酮分泌增加", "β<sub>2</sub> 受體被阻斷", "Bradykinin 分解減少而蓄積"],
+      answer: 3,
+      explain: "ACE 也負責分解 bradykinin，ACEI 使 bradykinin 蓄積而刺激呼吸道引起乾咳，也與血管水腫有關。ACEI 會減少而非增加 Ang II，改用 ARB 通常可改善。"
+    },
+    {
+      q: "使用 gentamicin 時最需監測的兩大毒性為：",
+      options: ["肝毒性與光敏感", "耳毒性與腎毒性", "QT 延長與肌腱斷裂", "骨髓抑制與灰嬰症候群"],
+      answer: 1,
+      explain: "Aminoglycosides 會蓄積於內耳與腎小管，造成耳毒性與腎毒性，因此常需 TDM。QT 延長與肌腱斷裂是 fluoroquinolones 的特徵，灰嬰症候群則屬 chloramphenicol。"
+    },
+    {
+      q: "Levofloxacin 的作用機轉為：",
+      options: ["抑制 DNA 旋轉酶與 topoisomerase IV", "結合 PBP 抑制細胞壁合成", "結合 50S 核糖體抑制轉位", "結合 30S 核糖體造成密碼誤讀"],
+      answer: 0,
+      explain: "Fluoroquinolones 抑制細菌 DNA 旋轉酶（topoisomerase II）與 topoisomerase IV，阻斷 DNA 複製。結合 50S 抑制轉位是 macrolides，30S 誤讀則是 aminoglycosides。"
+    },
+    {
+      q: "一位服用口服避孕藥的女性因結核病開始使用 rifampin，藥師最需提醒她的是：",
+      options: ["避孕藥會使 rifampin 濃度上升而增加肝毒性", "兩者併用會明顯延長 QT 間期", "應改為飯後服用 rifampin 以增加吸收", "Rifampin 誘導 CYP3A4 可能使避孕失敗，應改用或加用其他避孕方式"],
+      answer: 3,
+      explain: "Rifampin 是強效 CYP 誘導劑，加速雌激素與黃體素代謝而降低避孕效果。Rifampin 宜空腹服用以利吸收，所以「飯後服用增加吸收」是錯的。"
+    },
+    {
+      q: "低劑量 aspirin 能長時間抑制血小板凝集，主要原因是：",
+      options: ["選擇性抑制 COX-2", "不可逆乙醯化 COX-1，而血小板無細胞核無法再合成新酵素", "阻斷 P2Y<sub>12</sub> ADP 受體", "可逆抑制 COX，但藥物半衰期很長"],
+      answer: 1,
+      explain: "Aspirin 乙醯化 COX 的絲胺酸殘基，使血小板 TXA<sub>2</sub> 生成在其壽命（約 7～10 天）內持續受抑制。阻斷 P2Y<sub>12</sub> 是 clopidogrel 的機轉；aspirin 本身的半衰期其實很短。"
+    }
+  ]
+};
+</script>
+<script src="../assets/app.js"></script>
+</body>
+</html>

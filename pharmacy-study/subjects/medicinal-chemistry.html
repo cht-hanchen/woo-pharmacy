@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>藥物化學、結構化學｜藥學常識</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Noto+Sans+TC:wght@400;500;700&family=Noto+Serif+TC:wght@700;900&display=swap">
+<link rel="stylesheet" href="../assets/style.css">
+</head>
+<body>
+<div id="app"></div>
+<script>
+window.SUBJECT = {
+  id: "medicinal-chemistry",
+  title: "藥物化學、結構化學",
+  en: "Medicinal Chemistry",
+  tagline: "分子上多一個甲基、換一個立體方向，可能就是治病與致畸、有效與無效的差別。",
+  hook: {
+    q: "治療高血壓的 ACE 抑制劑，祖先竟然來自一條巴西毒蛇？",
+    a: "科學家發現巴西矛頭蝮蛇（<i>Bothrops jararaca</i>）毒液中的胜肽能抑制血管張力素轉換酶（ACE）。Squibb 的 Ondetti 與 Cushman 以這些胜肽和含鋅的羧肽酶 A 活性位為藍圖，一步步改造出可口服的小分子 captopril，1981 年在美國上市，成為早期理性藥物設計的經典。"
+  },
+  intro: {
+    lead: "藥物化學（Medicinal Chemistry）研究「分子結構如何決定藥效」：從找到先導化合物、修飾官能基，到預測它在體內如何吸收、代謝與排除。<br><br>它把有機化學、生化與藥理學串在一起。看到一個結構式，藥師應該能推估它是酸還是鹼、脂溶性高不高、會不會被 CYP 代謝、是否為前驅藥，甚至猜出它屬於哪一類藥物。<br><br>國考常考的 SAR、pKa 計算、前驅藥與代謝反應，在臨床上就是交互作用判讀、劑型選擇與中毒處理的底層邏輯。",
+    why: [
+      "讀懂結構式，就能推測藥物類別、作用機轉與副作用",
+      "pKa 與 logP 決定吸收、分布與尿液排除（如鹼化尿液處理水楊酸中毒）",
+      "代謝化學解釋藥物交互作用、基因多型性與肝毒性（如 NAPQI）",
+      "前驅藥與立體異構物是新藥開發與「掌性轉換」的常見策略"
+    ]
+  },
+  sections: [
+    {
+      title: "藥物化學是什麼：藥效團與鍵結力",
+      body: "藥物要先「抓住」標靶（受體、酵素、離子通道）才能作用。決定結合的是一組關鍵官能基在三度空間的排列，稱為藥效團；其餘骨架負責把它們擺到正確位置並調整物化性質。",
+      points: [
+        "藥效團（pharmacophore）：產生活性所需的最少官能基及其空間配置",
+        "結構活性關係（structure-activity relationship, SAR）：系統性修改結構、觀察活性變化",
+        "氫鍵供體（H-bond donor, 如 –OH、–NH）與受體（H-bond acceptor, 如 C=O、–O–、N）決定專一性",
+        "可解離基團（ionizable group, 如 –COOH、胺基）可形成離子鍵，但也影響膜穿透",
+        "多數藥物以可逆的非共價鍵結合；少數形成共價鍵（如 aspirin 乙醯化 COX、β-lactam 醯化 PBP）"
+      ],
+      table: {
+        caption: "藥物與標靶之間的主要作用力",
+        head: ["作用力", "參與基團", "藥物例子"],
+        rows: [
+          ["離子鍵（ionic bond）", "質子化胺 –NH<sub>3</sub><sup>+</sup> 與 –COO<sup>–</sup>", "胺類藥物與受體天門冬胺酸殘基"],
+          ["氫鍵（hydrogen bond）", "–OH、–NH、C=O", "兒茶酚胺的苯環 OH 與 β 受體絲胺酸"],
+          ["疏水／凡得瓦力（hydrophobic / van der Waals）", "烷基、芳香環", "類固醇骨架嵌入受體疏水口袋"],
+          ["金屬配位（metal chelation）", "–SH、–COOH、羥肟酸", "captopril 的 –SH 與 ACE 的 Zn<sup>2+</sup>"],
+          ["共價鍵（covalent bond）", "β-lactam、乙醯基", "penicillin 不可逆醯化轉肽酶"]
+        ]
+      },
+      clinical: "omeprazole 在胃壁細胞酸性環境轉成活性亞磺醯胺，與質子幫浦的半胱胺酸形成共價雙硫鍵，所以作用時間遠長於血中半衰期。"
+    },
+    {
+      title: "pKa、解離與 Henderson–Hasselbalch 方程式",
+      body: "大多數藥物是弱酸或弱鹼，只有未解離（中性）型容易以被動擴散穿過脂質膜。由 pKa 與環境 pH 就能算出離子型比例，預測吸收部位與排除。",
+      points: [
+        "弱酸：pH = pKa + log([A<sup>–</sup>]/[HA])；弱鹼：pH = pKa + log([B]/[BH<sup>+</sup>])",
+        "pH = pKa 時，解離型與未解離型各 50%；pH 每差 1 單位，比例差 10 倍",
+        "弱酸在酸性環境多為未解離型；弱鹼在鹼性環境多為未解離型（同性不解離）",
+        "離子捕捉（ion trapping）：藥物在 pH 不同的兩區間，會累積在易解離的一側",
+        "弱鹼的 pKa 指其共軛酸 BH<sup>+</sup> 的 pKa：弱酸 pKa 越低酸性越強，弱鹼 pKa 越高鹼性越強"
+      ],
+      table: {
+        caption: "解離比例速算（離子型：未解離型）",
+        head: ["情況", "弱酸 HA", "弱鹼 B"],
+        rows: [
+          ["pH = pKa", "1 : 1（50% 解離）", "1 : 1（50% 解離）"],
+          ["pH 比 pKa 高 1", "10 : 1（約 91% 解離）", "1 : 10（約 9% 解離）"],
+          ["pH 比 pKa 高 2", "100 : 1（約 99% 解離）", "1 : 100（約 1% 解離）"],
+          ["pH 比 pKa 低 2", "1 : 100（約 1% 解離）", "100 : 1（約 99% 解離）"]
+        ]
+      },
+      clinical: "水楊酸或 phenobarbital（弱酸）中毒時，以碳酸氫鈉鹼化尿液，使藥物在腎小管解離、無法再吸收而加速排出。"
+    },
+    {
+      title: "親脂性 logP 與 Lipinski 五規則",
+      body: "藥物要夠親脂才能穿膜，又要夠親水才能溶解；logP 衡量這個平衡。Lipinski 歸納口服藥的經驗規則，用來篩除吸收可能不佳的分子。",
+      points: [
+        "分配係數 P = [藥物]<sub>正辛醇</sub> / [藥物]<sub>水</sub>，logP 越大越親脂（指未解離型）",
+        "分布係數 logD：考慮特定 pH 下的解離，比 logP 更貼近生理情況",
+        "加入 –CH<sub>3</sub>、鹵素、芳香環 → logP 上升；加入 –OH、–COOH、–NH<sub>2</sub> → logP 下降",
+        "過度親脂：溶解度差、蛋白結合高、易被 CYP 代謝、易積存在脂肪",
+        "Lipinski 五規則（rule of five, 1997）：違反兩項以上，口服吸收較可能不佳",
+        "例外：經轉運蛋白吸收的藥物、許多天然物與抗生素（如 cyclosporine）"
+      ],
+      table: {
+        caption: "Lipinski 五規則（數字都是 5 的倍數）",
+        head: ["項目", "建議上限"],
+        rows: [
+          ["分子量（MW）", "≤ 500"],
+          ["logP", "≤ 5"],
+          ["氫鍵供體數（–OH + –NH）", "≤ 5"],
+          ["氫鍵受體數（N + O 原子）", "≤ 10"]
+        ]
+      },
+      clinical: "heroin 是 morphine 的 3,6-二乙醯酯，親脂性更高、更快通過血腦障壁，所以作用來得更猛。"
+    },
+    {
+      title: "立體化學：掌性與鏡像異構物",
+      body: "受體是由 L-胺基酸組成的掌性環境，就像右手只能套右手手套。一對鏡像異構物的物化性質幾乎相同，但在體內的活性、代謝與毒性可能截然不同。",
+      points: [
+        "掌性中心（chiral center）：連接四個不同取代基的碳；以 R/S（CIP 規則）命名",
+        "旋光方向 (+)/(–)（d/l）是實驗量測值，與 R/S 沒有固定對應關係",
+        "活性較強者為優映體（eutomer），較弱者為劣映體（distomer）；兩者活性比為 eudismic ratio",
+        "消旋物（racemate）：兩鏡像異構物 1:1 混合",
+        "掌性轉換（chiral switch）：把已上市的消旋藥改成單一鏡像異構物上市",
+        "Easson–Stedman 三點結合假說：受體至少需三個接觸點才能區分鏡像異構物"
+      ],
+      table: {
+        caption: "經典鏡像異構物案例",
+        head: ["藥物", "重點"],
+        rows: [
+          ["thalidomide（沙利竇邁）", "R 型鎮靜、S 型被認為與致畸相關；但體內會互相轉換（消旋化），單一鏡像物無法避免致畸"],
+          ["omeprazole → esomeprazole", "esomeprazole 為 S 型，較不受 CYP2C19 代謝影響，血中濃度較高、較穩定"],
+          ["citalopram → escitalopram", "S 型是主要具 SSRI 活性的鏡像物"],
+          ["warfarin", "S 型抗凝活性較強，主要經 CYP2C9 代謝"],
+          ["ibuprofen", "S 型抑制 COX；體內 R 型可單向轉換為 S 型"],
+          ["dextromethorphan / levorphanol", "同骨架的鏡像對：前者止咳、無鴉片類止痛作用；後者為強效鴉片類止痛藥"]
+        ]
+      },
+      clinical: "1950 年代末 thalidomide 被用於孕吐，導致上萬名海豹肢症嬰兒；美國 FDA 的 Frances Kelsey 因堅持不核准而避免了美國的大規模災難。"
+    },
+    {
+      title: "藥效團與 SAR：經典藥物家族",
+      body: "國考最愛問：「哪個基團是活性必需？改了它會怎樣？」掌握每一類的核心骨架與關鍵修飾，就能以結構推理藥性。",
+      points: [
+        "β-lactam 環的張力是 penicillin 醯化 PBP 的關鍵，也是 β-lactamase 攻擊的目標",
+        "磺胺藥模仿 PABA，競爭抑制細菌二氫葉酸合成；N4 的游離芳香胺為活性必需",
+        "morphine：3-酚 OH 與三級胺是關鍵；N-甲基換成 N-烯丙基即成拮抗劑（naloxone、nalorphine）",
+        "兒茶酚胺：N 上取代基越大，β 選擇性越高；tert-butyl 帶來 β<sub>2</sub> 選擇性",
+        "ACE 抑制劑：以 –SH、–COOH 或次膦酸基與 Zn<sup>2+</sup> 結合，再接 proline 類似結構"
+      ],
+      table: {
+        caption: "經典 SAR 重點整理",
+        head: ["藥物家族", "核心結構", "SAR 重點"],
+        rows: [
+          ["Penicillins", "β-lactam + thiazolidine（penam）", "C3 羧酸必需；側鏈決定抗菌譜與穩定性：penicillin V 醚氧拉電子 → 耐酸；ampicillin α-胺基 → 擴及革蘭氏陰性；methicillin 2,6-二甲氧苯基立體障礙 → 抗 β-lactamase"],
+          ["Sulfonamides", "對胺基苯磺醯胺", "N4 游離胺必需（或為前驅藥，如 prontosil 偶氮還原後釋出 sulfanilamide）；N1 雜環取代 → 酸性與活性提高"],
+          ["Morphine 類", "五環菲骨架 + 哌啶", "3-OH 甲基化 → codeine（活性大降）；3,6-二乙醯 → heroin；6-OH 氧化成酮並還原 7,8 雙鍵 → hydromorphone；N-烯丙基或 N-環丙甲基 → 拮抗劑"],
+          ["類固醇", "環戊烷駢全氫菲（A、B、C 六員環 + D 五員環，17 碳）", "1,2-雙鍵（prednisolone）↑ 糖皮質作用；9α-F ↑ 糖皮質與礦物皮質作用；16-甲基（dexamethasone）↓ 礦物皮質作用；17α-乙炔基 → 雌激素可口服"],
+          ["兒茶酚胺", "β-苯乙胺 + 3,4-二羥苯", "NE（N–H）α 為主 → epinephrine（N–CH<sub>3</sub>）α+β → isoproterenol（異丙基）β → albuterol（tert-butyl）β<sub>2</sub>；兒茶酚易被 COMT 代謝，故不能口服"],
+          ["Benzodiazepines", "1,4-benzodiazepine（苯環 + 七員二氮環 + 5-苯基）", "7 位拉電子基（Cl、NO<sub>2</sub>）必需；2′ 鹵素增強活性；1,2 位接三唑環 → alprazolam、triazolam 更強效；3-OH → 直接葡萄糖醛酸化"],
+          ["ACE 抑制劑", "Zn 結合基 + proline 樣羧酸", "captopril 用 –SH（皮疹、味覺異常較常見）；enalaprilat 改用 –COOH，但口服差 → 乙酯前驅藥 enalapril；fosinopril 用次膦酸基"]
+        ]
+      },
+      clinical: "albuterol 以 3-CH<sub>2</sub>OH 取代兒茶酚的一個 OH（saligenin 結構），避開 COMT，所以能口服或吸入且作用較久。"
+    },
+    {
+      title: "生物等排體與前驅藥",
+      body: "藥物化學家的兩大「換裝術」：以生物等排體替換基團來改善活性或藥動，或把藥物暫時「包裝」成無活性的前驅藥，進入體內再拆封。",
+      points: [
+        "生物等排體（bioisostere）：大小、電子性質相似，可互換且保留生物活性的基團",
+        "古典等排：H ↔ F（5-fluorouracil）、–OH ↔ –SH（6-mercaptopurine）、C ↔ N 交換（allopurinol 為 hypoxanthine 類似物）",
+        "非古典等排：四唑環（tetrazole）取代羧酸，酸性相近但更親脂（losartan 等 sartan 類）",
+        "前驅藥（prodrug）：本身活性低或無活性，體內經酵素或化學轉換為活性藥",
+        "目的：改善口服吸收、穿越血腦障壁、延長作用、減少刺激或提高部位選擇性"
+      ],
+      table: {
+        caption: "常考前驅藥",
+        head: ["前驅藥", "活性形式", "設計目的／活化方式"],
+        rows: [
+          ["enalapril", "enalaprilat", "乙酯化提高口服吸收；肝臟酯酶水解"],
+          ["levodopa", "dopamine", "dopamine 無法通過血腦障壁；levodopa 經 LAT1 胺基酸轉運進腦，再由 AADC 脫羧（併用 carbidopa 抑制周邊脫羧）"],
+          ["valacyclovir", "acyclovir", "L-纈胺酸酯經 PEPT1 吸收，生體可用率比 acyclovir 高數倍"],
+          ["codeine", "morphine", "CYP2D6 進行 O-去甲基；超快代謝者有呼吸抑制風險"],
+          ["clopidogrel", "活性硫醇代謝物", "需 CYP2C19 活化；慢代謝者療效減弱"],
+          ["prontosil", "sulfanilamide", "史上第一個磺胺藥，體內偶氮還原後才有抗菌活性"]
+        ]
+      },
+      clinical: "lisinopril 是 enalaprilat 的離胺酸類似物，本身即有活性、不需肝臟活化，這是它和多數 -pril 不同之處。"
+    },
+    {
+      title: "藥物代謝化學：Phase I 與 Phase II",
+      body: "代謝的總方向是把親脂藥物變成水溶性代謝物排出。Phase I 引入或暴露極性基團（官能化），Phase II 再接上內源性大分子（結合反應）；兩者不一定依序發生。",
+      points: [
+        "Phase I 氧化：細胞色素 P450（CYP，含血基質的單加氧酶）催化羥化、N-/O-去烷基、S-氧化等；CYP3A4 代謝的藥物最多",
+        "Phase I 還原：偶氮還原（prontosil）、硝基還原（clonazepam 7-NO<sub>2</sub> → 7-NH<sub>2</sub>）",
+        "Phase I 水解：酯類（procaine、aspirin、succinylcholine）比醯胺類（lidocaine）更易水解",
+        "Phase II 多半使代謝物失活且更水溶；例外：morphine-6-glucuronide 仍有活性、minoxidil 經硫酸化才活化",
+        "乙醯化與甲基化反而使極性下降；磺胺的乙醯代謝物溶解度差，易致結晶尿",
+        "NAT2 基因多型：慢乙醯化者使用 isoniazid 易周邊神經病變，用 hydralazine、procainamide 易出現藥物性狼瘡"
+      ],
+      table: {
+        caption: "Phase II 結合反應",
+        head: ["反應", "輔因子／酵素", "重點與例子"],
+        rows: [
+          ["葡萄糖醛酸化（glucuronidation）", "UDPGA / UGT", "最常見、容量大；新生兒 UGT 不足 → chloramphenicol 灰嬰症候群"],
+          ["硫酸化（sulfation）", "PAPS / SULT", "容量小、易飽和；acetaminophen 主要代謝途徑之一"],
+          ["乙醯化（acetylation）", "acetyl-CoA / NAT2", "isoniazid、hydralazine、procainamide、磺胺藥；有快／慢乙醯化者"],
+          ["甲基化（methylation）", "SAM / COMT、TPMT", "兒茶酚胺經 COMT；TPMT 缺乏者使用 azathioprine、6-MP 骨髓毒性增加"],
+          ["麩胱甘肽結合（glutathione conjugation）", "GSH / GST", "解除親電性代謝物（如 NAPQI），最後以硫醚胺酸（mercapturic acid）排出"]
+        ]
+      },
+      clinical: "acetaminophen 過量時，葡萄糖醛酸化與硫酸化飽和，更多藥物經 CYP2E1 生成 NAPQI；肝內 GSH 耗盡後 NAPQI 攻擊肝細胞蛋白，解毒劑 N-乙醯半胱胺酸（NAC）用來補充 GSH。"
+    },
+    {
+      title: "藥物設計策略與依核心結構分類",
+      body: "新藥從「先導化合物」出發，經反覆的結構修飾成為候選藥。認識各藥物家族的核心骨架與命名字尾，看到陌生藥名也能猜出八九分。",
+      points: [
+        "先導物發現（lead discovery）：天然物（penicillin、morphine、artemisinin）、高通量篩選（HTS）、意外發現、副作用延伸（sildenafil 原為心絞痛研究）",
+        "先導物最適化（lead optimization）：提升效價與選擇性，同時改善 ADMET（吸收、分布、代謝、排除、毒性）",
+        "以結構為基礎的藥物設計（structure-based drug design）：依據標靶的 X 光晶體結構設計分子",
+        "HIV 蛋白酶抑制劑：模仿受質切割時的過渡狀態（transition-state mimetic），以不可切斷的羥乙基結構取代胜肽鍵；saquinavir 於 1995 年首先上市",
+        "imatinib：由 HTS 找到的苯胺嘧啶先導物最適化而來，結合 BCR-ABL 激酶非活化構形的 ATP 口袋，2001 年核准治療 CML，是標靶治療的里程碑"
+      ],
+      table: {
+        caption: "依核心結構認識藥物家族",
+        head: ["核心結構", "代表藥物／字尾", "結構相關重點"],
+        rows: [
+          ["β-lactam", "penicillins、cephalosporins（cephem）、carbapenems、aztreonam（monobactam）", "四員環醯胺；cephem 為 β-lactam 接六員二氫噻嗪環"],
+          ["4-quinolone", "-floxacin", "3-COOH、4-酮基與 Mg<sup>2+</sup>、Ca<sup>2+</sup> 螯合 → 勿與制酸劑併服；6-F 增強活性"],
+          ["四環素（四個線性稠合環）", "tetracycline、doxycycline", "螯合多價金屬離子；沉積於牙齒骨骼"],
+          ["巨環內酯（macrocyclic lactone）", "erythromycin、azithromycin", "14–16 員內酯環接胺基糖"],
+          ["1,4-二氫吡啶（1,4-dihydropyridine）", "-dipine（nifedipine、amlodipine）", "經 CYP3A4 氧化成吡啶而失活 → 葡萄柚汁交互作用"],
+          ["芳氧丙醇胺（aryloxypropanolamine）", "-olol（β 阻斷劑）", "保留 β-OH 與 N-異丙基／tert-butyl，模仿兒茶酚胺側鏈"],
+          ["苯並咪唑（benzimidazole）+ 亞磺醯基", "-prazole（PPI）", "弱鹼，在壁細胞酸性環境累積並活化"],
+          ["吩噻嗪（phenothiazine）三環", "chlorpromazine", "2 位拉電子基增效；環 N 與側鏈胺間隔 3 個碳"],
+          ["Statin（HMG 類似結構）", "-statin", "二羥基酸側鏈模仿 HMG-CoA；lovastatin、simvastatin 為內酯前驅藥"]
+        ]
+      },
+      clinical: "看到字尾 -tinib 想到小分子激酶抑制劑、-mab 想到單株抗體，是門診辨認新藥最快的方式。"
+    }
+  ],
+  mnemonics: [
+    { title: "同性不解離", text: "酸遇酸、鹼遇鹼 → 多為未解離型、易穿膜。弱酸藥在胃中較不解離；鹼化尿液可「捕捉」弱酸藥加速排出。" },
+    { title: "Lipinski「5、5、10、500」", text: "氫鍵供體 ≤ 5、logP ≤ 5、氫鍵受體 ≤ 10、分子量 ≤ 500，全部是 5 的倍數；違反兩項以上要小心口服吸收。" },
+    { title: "N 上越胖越愛 β", text: "H（norepinephrine）→ 甲基（epinephrine）→ 異丙基（isoproterenol）→ 第三丁基（albuterol）：取代基越大，α 越弱、β 越強，最後偏向 β<sub>2</sub>。" },
+    { title: "肝不好吃 LOT", text: "Lorazepam、Oxazepam、Temazepam 帶 3-OH，直接葡萄糖醛酸化、不經 CYP 氧化，肝功能不佳或老人較適合。" },
+    { title: "慢乙醯化者 SHIP 翻船", text: "Sulfonamides、Hydralazine、Isoniazid、Procainamide 經 NAT2 乙醯化；慢乙醯化者濃度偏高，易出現毒性（狼瘡樣症狀、神經病變）。" },
+    { title: "嗎啡改造三招", text: "「3 位蓋甲變可待、3,6 雙乙變海洛、N 掛烯丙變拮抗」：codeine、heroin、naloxone 一次記。" }
+  ],
+  flashcards: [
+    { front: "弱酸 pKa 4.4，在 pH 7.4 的血漿中解離約多少？", back: "[A<sup>–</sup>]/[HA] = 10<sup>3</sup>，約 99.9% 為離子型。" },
+    { front: "藥效團（pharmacophore）", back: "產生生物活性所需的最少官能基及其三度空間排列。" },
+    { front: "Lipinski 五規則的四個條件", back: "MW ≤ 500、logP ≤ 5、氫鍵供體 ≤ 5、氫鍵受體 ≤ 10。" },
+    { front: "eutomer 與 distomer", back: "一對鏡像異構物中活性較強者為 eutomer（優映體），較弱者為 distomer（劣映體）。" },
+    { front: "為何只賣 thalidomide 單一鏡像物仍無法避免致畸？", back: "它在體內會消旋化，R 與 S 型互相轉換。" },
+    { front: "penicillin 被 β-lactamase 破壞的位置", back: "β-lactam 環的醯胺鍵被水解開環，失去醯化 PBP 的能力。" },
+    { front: "磺胺藥的作用機轉", back: "結構類似 PABA，競爭抑制二氫蝶酸合成酶（dihydropteroate synthase），阻斷細菌葉酸合成。" },
+    { front: "morphine 的 N-甲基換成 N-烯丙基", back: "變成鴉片受體拮抗劑（nalorphine；在 oxymorphone 骨架上則為 naloxone）。" },
+    { front: "losartan 的四唑環扮演什麼角色？", back: "羧酸的非古典生物等排體：酸性相近、更親脂。" },
+    { front: "valacyclovir 為何比 acyclovir 吸收好？", back: "L-纈胺酸酯被腸道 PEPT1 轉運吸收，再水解為 acyclovir。" },
+    { front: "acetaminophen 的毒性代謝物與解毒劑", back: "CYP2E1 產生的 NAPQI；以 N-乙醯半胱胺酸（NAC）補充麩胱甘肽解毒。" },
+    { front: "imatinib 的標靶", back: "BCR-ABL 酪胺酸激酶（ATP 結合位，非活化構形），用於慢性骨髓性白血病（CML）。" }
+  ],
+  quiz: [
+    {
+      q: "aspirin（pKa 約 3.5）在胃液 pH 1.5 中，約有多少比例為<b>未解離型</b>？",
+      options: ["約 1%", "約 50%", "約 91%", "約 99%"],
+      answer: 3,
+      explain: "弱酸 [A<sup>–</sup>]/[HA] = 10<sup>(1.5–3.5)</sup> = 1/100，所以約 99% 為未解離型。約 1% 是「解離型」的比例，算對了卻答反是最常見的陷阱。"
+    },
+    {
+      q: "某弱鹼藥物 pKa 為 9.4，在血漿 pH 7.4 時約有多少比例為<b>離子型</b>？",
+      options: ["約 99%", "約 50%", "約 9%", "約 1%"],
+      answer: 0,
+      explain: "弱鹼 [BH<sup>+</sup>]/[B] = 10<sup>(9.4–7.4)</sup> = 100，故約 99% 為離子型。若誤用弱酸公式會得到約 1%。"
+    },
+    {
+      q: "依 Lipinski 五規則，下列哪一個化合物最可能口服吸收不佳？",
+      options: ["MW 350、logP 2.1、HBD 2、HBA 5", "MW 480、logP 4.5、HBD 3、HBA 8", "MW 650、logP 6.2、HBD 4、HBA 9", "MW 300、logP 1.0、HBD 1、HBA 4"],
+      answer: 2,
+      explain: "選項 C 分子量 > 500 且 logP > 5，違反兩項，吸收不佳的風險最高。選項 B 各項都接近上限但未超過，仍符合規則。"
+    },
+    {
+      q: "關於 thalidomide 的敘述，何者正確？",
+      options: ["只有 R 型具藥理作用，S 型完全無活性", "R、S 型在體內會互相轉換，因此只給單一鏡像物仍無法避免致畸", "其致畸性是因為它是強效 CYP3A4 抑制劑", "美國因提早核准而成為受害最嚴重的國家"],
+      answer: 1,
+      explain: "thalidomide 在生理條件下會消旋化，單一鏡像物也會轉成另一型。美國 FDA 的 Frances Kelsey 當年拒絕核准，美國反而受害相對較少。"
+    },
+    {
+      q: "下列哪一個 penicillin 因側鏈具有大體積的 2,6-二甲氧苯基，產生立體障礙而能抵抗 staphylococcal β-lactamase？",
+      options: ["penicillin G", "amoxicillin", "methicillin", "penicillin V"],
+      answer: 2,
+      explain: "methicillin 的鄰位雙甲氧基阻擋 β-lactamase 接近 β-lactam 環。penicillin V 的修飾帶來的是耐酸性，而非抗 β-lactamase。"
+    },
+    {
+      q: "磺胺類抗菌藥的作用機轉為何？",
+      options: ["結構類似 PABA，競爭抑制二氫蝶酸合成酶", "抑制二氫葉酸還原酶（DHFR）", "與 30S 核糖體次單元結合", "抑制 DNA gyrase"],
+      answer: 0,
+      explain: "磺胺藥模仿 PABA，阻斷細菌合成二氫蝶酸。抑制 DHFR 的是 trimethoprim，兩者併用（如 co-trimoxazole）形成序列阻斷。"
+    },
+    {
+      q: "將 morphine 骨架上的 N-甲基換成 N-烯丙基（N-allyl），最可能的結果是？",
+      options: ["成為更強效的完全致效劑", "失去所有鴉片受體親和力", "變成周邊作用的止瀉藥", "轉變為鴉片受體拮抗劑"],
+      answer: 3,
+      explain: "N-烯丙基（如 nalorphine、naloxone）或 N-環丙甲基（naltrexone）會使化合物轉為拮抗劑。它仍保有受體親和力，只是不產生致效作用，所以「失去親和力」是錯的。"
+    },
+    {
+      q: "兒茶酚胺類藥物的胺基氮上，哪一種取代基最能帶來 β<sub>2</sub> 選擇性？",
+      options: ["氫（–H）", "第三丁基（tert-butyl）", "甲基（–CH<sub>3</sub>）", "異丙基（isopropyl）"],
+      answer: 1,
+      explain: "albuterol、terbutaline 以 N-tert-butyl 取得 β<sub>2</sub> 選擇性。異丙基（isoproterenol）雖然 β 作用強，但對 β<sub>1</sub>、β<sub>2</sub> 不具選擇性。"
+    },
+    {
+      q: "一位肝硬化老年病人需要使用 benzodiazepine，下列何者較適合？",
+      options: ["lorazepam", "diazepam", "chlordiazepoxide", "flurazepam"],
+      answer: 0,
+      explain: "lorazepam 帶 3-OH，直接進行葡萄糖醛酸化、無活性代謝物，受肝功能影響較小。diazepam 需經 CYP 氧化，並產生長效活性代謝物（desmethyldiazepam），易蓄積。"
+    },
+    {
+      q: "captopril 結構中與 ACE 活性位 Zn<sup>2+</sup> 結合、且與皮疹及味覺異常有關的基團是？",
+      options: ["羧酸基（–COOH）", "四唑環", "硫氫基（–SH）", "次膦酸基"],
+      answer: 2,
+      explain: "captopril 以 –SH 螯合鋅，這個基團也與皮疹、味覺障礙等副作用有關。後來的 enalaprilat 改用羧酸結合鋅；次膦酸基則是 fosinopril 的設計。"
+    },
+    {
+      q: "losartan 等 sartan 類藥物常以四唑環（tetrazole）取代哪一個官能基，作為生物等排體？",
+      options: ["一級胺", "羧酸", "酚羥基", "酯基"],
+      answer: 1,
+      explain: "四唑環的酸性與羧酸相近，在生理 pH 也帶負電，但親脂性較高，是經典的非古典生物等排體。它不是胺類的等排體，因為四唑環是酸性而非鹼性。"
+    },
+    {
+      q: "下列哪一個藥物<b>不是</b>前驅藥？",
+      options: ["enalapril", "valacyclovir", "levodopa", "lisinopril"],
+      answer: 3,
+      explain: "lisinopril 是 enalaprilat 的離胺酸類似物，本身就有活性。enalapril 需肝臟酯酶水解成 enalaprilat，是典型的前驅藥。"
+    },
+    {
+      q: "acetaminophen 過量引起肝毒性，給予 N-乙醯半胱胺酸（NAC）的主要原理為何？",
+      options: ["補充麩胱甘肽（GSH），結合並解毒 NAPQI", "抑制 UGT，減少葡萄糖醛酸化", "鹼化尿液以加速 acetaminophen 排出", "誘導 CYP2E1 以加速代謝"],
+      answer: 0,
+      explain: "NAC 提供半胱胺酸以合成 GSH，GSH 與親電性的 NAPQI 結合後排出。誘導 CYP2E1 只會產生更多 NAPQI，使毒性惡化。"
+    },
+    {
+      q: "慢乙醯化者（slow acetylator）使用下列哪一個藥物時，較容易出現藥物引起的類狼瘡症狀？",
+      options: ["acetaminophen", "warfarin", "hydralazine", "morphine"],
+      answer: 2,
+      explain: "hydralazine 與 procainamide 經 NAT2 乙醯化，慢乙醯化者血中濃度較高，類狼瘡風險較高。acetaminophen 主要經葡萄糖醛酸化與硫酸化，與乙醯化表現型無關。"
+    },
+    {
+      q: "HIV 蛋白酶抑制劑（如 saquinavir）的開發，最能代表下列哪一種藥物設計策略？",
+      options: ["意外發現（serendipity）", "依標靶 X 光晶體結構進行的結構導向設計，模仿受質過渡狀態", "從傳統草藥直接分離純化", "將舊藥的消旋物改為單一鏡像物"],
+      answer: 1,
+      explain: "HIV 蛋白酶的晶體結構解出後，研究者設計出模仿胜肽水解過渡狀態、但無法被切斷的抑制劑，屬於結構導向設計。改成單一鏡像物是「掌性轉換」，如 esomeprazole，與此無關。"
+    }
+  ]
+};
+</script>
+<script src="../assets/app.js"></script>
+</body>
+</html>
