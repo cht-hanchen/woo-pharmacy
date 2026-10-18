@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "woo-pharmacy",
+  "compatibility_date": "2026-10-18",
+  "assets": {
+    "directory": "./pharmacy-study"
+  },
+  "routes": [
+    {
+      "pattern": "pharmacy.wooafterwork.com",
+      "custom_domain": true
+    }
+  ]
+}

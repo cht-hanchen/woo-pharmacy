@@ -285,7 +285,15 @@
       es.forEach(function (e) {
         if (e.isIntersecting) {
           links.forEach(function (a) { a.classList.remove('on'); });
-          var a = map[e.target.id]; if (a) { a.classList.add('on'); a.scrollIntoView({ block: 'nearest', inline: 'nearest' }); }
+          var a = map[e.target.id];
+          if (a) {
+            a.classList.add('on');
+            var nav = a.parentElement;
+            var linkRect = a.getBoundingClientRect();
+            var navRect = nav.getBoundingClientRect();
+            if (linkRect.left < navRect.left) nav.scrollLeft += linkRect.left - navRect.left;
+            else if (linkRect.right > navRect.right) nav.scrollLeft += linkRect.right - navRect.right;
+          }
         }
       });
     }, { rootMargin: '-30% 0px -60% 0px' });

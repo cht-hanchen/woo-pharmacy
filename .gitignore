@@ -23,4 +23,17 @@ _local/
 .DS_Store
 __pycache__/
 *.pyc
-.claude/settings.local.json
+.claude/
+node_modules/
+.wrangler/
+dist/
+*.log
+
+# Credentials and local environment
+.env
+.env.*
+!.env.example
+.dev.vars
+.dev.vars.*
+*.pem
+*.key

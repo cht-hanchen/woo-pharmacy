@@ -1,0 +1,16 @@
+{
+  "name": "woo-pharmacy",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "test": "node --check pharmacy-study/assets/app.js && node pharmacy-study/tools/check.js pharmacy-study/subjects/*.html",
+    "deploy:check": "wrangler deploy --dry-run",
+    "deploy": "wrangler deploy"
+  },
+  "devDependencies": {
+    "wrangler": "^4.151.1"
+  }
+}
